@@ -1,1 +1,68 @@
-<!doctype html><html><head><meta charset='utf-8'><title>WHEFAX</title></head><body><div class='container'></div><script src='user.js'></script></body></html>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WHEFAX</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))}</script>
+</head>
+<body>
+<header class="hero"><img src="assets/header-whefax.png" alt="WHEFAX HOLIDAYS"></header>
+<div class="container">
+  <div class="card">
+    <div class="tabs-bar" role="tablist" aria-label="Sections">
+      <button class="tabkey red" data-tab="deals" role="tab" aria-selected="true">DEALS</button>
+      <button class="tabkey green" data-tab="finder" role="tab" aria-selected="false">FINDER</button>
+      <button class="tabkey yellow" data-tab="request" role="tab" aria-selected="false">REQUEST</button>
+      <button class="tabkey blue" data-tab="about" role="tab" aria-selected="false">ABOUT</button>
+    </div>
+  </div>
+  <div id="tab-deals" class="tabpane active">
+    <div class="card"><input id="q" class="input" placeholder="Filter (e.g. 'Paris', '£299', 'Nov')"><div id="tagFilter" class="tags"></div></div>
+    <div id="wrap" class="grid deals"></div>
+  </div>
+  <div id="tab-finder" class="tabpane">
+    <div class="card" id="finderCard">
+      <h2 class="title" style="margin-top:0">your personal holiday finder</h2>
+      <p class="notice">Just fill in as much info as you want to.</p>
+      <div class="kv"><div>WHERE</div><div><input id="f_where" class="input" placeholder="e.g. Tenerife, Paris, Greece"></div></div>
+      <div class="kv"><div>DEPARTURE AIRPORT</div><div><input id="f_airport" class="input" placeholder="e.g. LGW, MAN, EDI — or 'any'"></div></div>
+      <div class="kv"><div>HOW LONG</div><div><input id="f_length" class="input" placeholder="e.g. 7 nights"></div></div>
+      <div class="kv"><div>WHEN</div><div><input id="f_when" class="input" placeholder="e.g. 12–19 Nov or flexible"></div></div>
+      <div class="kv"><div>WHO</div><div><input id="f_who" class="input" placeholder="e.g. 2 adults + 1 child"></div></div>
+      <div class="kv"><div>BUDGET</div><div><input id="f_budget" class="input" placeholder="e.g. up to £800pp or total £2,000"></div></div>
+      <div class="kv"><div>BOARD BASIS</div><div><input id="f_board" class="input" placeholder="e.g. AI / HB / BB / RO"></div></div>
+      <div class="kv"><div>MAX TRAVEL TIME</div><div><input id="f_travel" class="input" placeholder="e.g. up to 4h flight"></div></div>
+      <div class="kv"><div>OTHER INFO</div><div><textarea id="f_other" class="input" rows="3" placeholder="bags, dates flexibility, hotel type, etc."></textarea></div></div>
+      <div class="kv"><div>CONTACT</div><div><input id="f_contact" class="input" placeholder="Your email or WhatsApp number"></div></div>
+      <div class="tags"><a class="btn" id="finderSend">Find my dream holiday</a></div>
+      <p class="notice">We won’t call unless you would prefer to talk on the phone.</p>
+      <p class="notice">This opens WhatsApp to message WHEFAX directly with your request.</p>
+    </div>
+  </div>
+  <div id="tab-request" class="tabpane">
+    <div class="card">
+      <h2 class="title" style="margin-top:0">general holiday request</h2>
+      <p class="notice">Just tell us anything that helps — or leave blank fields.</p>
+      <div class="kv"><div>MESSAGE</div><div><textarea id="r_msg" class="input" rows="5" placeholder="Tell us what you’re looking for…"></textarea></div></div>
+      <div class="kv"><div>CONTACT</div><div><input id="r_contact" class="input" placeholder="Your email or WhatsApp number (optional)"></div></div>
+      <div class="tags"><a class="btn" id="reqSend">Send request via WhatsApp</a></div>
+      <p class="notice">We won’t call unless you would prefer to talk on the phone.</p>
+    </div>
+  </div>
+  <div id="tab-about" class="tabpane">
+    <div class="card">
+      <h2 class="title" style="margin-top:0">about WHEFAX</h2>
+      <p>Teletext-style, phone-first travel deals. Paste → publish → book.</p>
+      <p class="notice">Affiliate links may be used. Prices and availability can change at any time.</p>
+      <div class="kv"><div>Website</div><div><span id="about_site"></span></div></div>
+      <div class="kv"><div>WhatsApp</div><div><span id="about_whats"></span></div></div>
+    </div>
+  </div>
+</div>
+<footer class="bar bottom">WHEFAX</footer>
+<template id="dealCard"><div class="deal"><div class="left"><div class="title"></div><div class="meta"></div></div><div class="right"><img class="img" alt=""><div class="price"></div></div></div></template>
+<script src="user.js"></script>
+</body></html>

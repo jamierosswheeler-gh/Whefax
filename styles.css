@@ -1,18 +1,27 @@
 
-
-/* Teletext tabs */
+:root{--bg:#000;--fg:#fff;--blue:#00f;--red:#f00;--green:#0f0;--yellow:#ff0;--cyan:#0ff;--magenta:#f0f;
+font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--fg)}
+header.hero{background:#000;border-bottom:4px solid var(--blue)} header.hero img{width:100%;height:auto;display:block}
+.bar.bottom{display:flex;justify-content:center;padding:8px 12px;border-top:4px solid var(--red);background:#000}
+.container{max-width:980px;margin:0 auto;padding:12px}
+.title{color:var(--yellow);border-left:12px solid var(--yellow);padding-left:10px;margin:12px 0}
+.card{border:3px solid var(--cyan);padding:12px;background:#000;margin:10px 0}
+.grid{display:grid;gap:12px}.grid.deals{grid-template-columns:1fr}@media(min-width:720px){.grid.deals{grid-template-columns:1fr 1fr}}
+.input, textarea{width:100%;padding:10px;background:#000;border:3px solid var(--blue);color:var(--fg)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.tag{border:2px solid var(--magenta);color:var(--magenta);padding:6px 10px;user-select:none}
+.tag.selected{background:var(--magenta);color:#000;box-shadow:0 0 0 2px #000 inset}
+.deal{display:flex;gap:10px;justify-content:space-between;border:3px solid var(--cyan);background:#000;padding:10px}
+.deal .left{flex:1;min-width:0}.deal .title{color:var(--yellow);font-weight:900}.deal .meta{color:var(--cyan);margin:6px 0}.deal .price{color:var(--red);font-weight:900;font-size:1.2rem;text-align:right}
+.deal img{width:120px;height:90px;object-fit:cover;border:2px solid var(--magenta)}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:6px;align-items:center}
+.btn{display:inline-block;border:3px solid var(--green);color:var(--green);padding:10px 12px;text-decoration:none;font-weight:800;background:#000}
+.btn.blue{border-color:#00f;color:#00f}.btn.red{border-color:#f00;color:#f00}
+.notice{opacity:.8}
 .tabs-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
-.tabkey{display:flex;align-items:center;justify-content:center;padding:8px 6px;font-weight:900;border:3px solid #333;cursor:pointer;user-select:none}
-.tabkey.red{border-color:#f00;color:#f00}
-.tabkey.green{border-color:#0f0;color:#0f0}
-.tabkey.yellow{border-color:#ff0;color:#ff0}
-.tabkey.blue{border-color:#00f;color:#00f}
-.tabkey.active{outline:4px solid #222}
-.tabpane{display:none}
-.tabpane.active{display:block}
-textarea.input{min-height:84px}
-
-
-/* Buttons as tab keys */
-button.tabkey{background:#000;border-radius:0;appearance:none;-webkit-appearance:none}
-button.tabkey:focus{outline:4px solid #222}
+button.tabkey{background:#000;border:3px solid #333;border-radius:0;appearance:none;-webkit-appearance:none;font-weight:900;padding:8px 6px;cursor:pointer}
+button.tabkey.red{border-color:#f00;color:#f00}button.tabkey.green{border-color:#0f0;color:#0f0}
+button.tabkey.yellow{border-color:#ff0;color:#ff0}button.tabkey.blue{border-color:#00f;color:#00f}
+button.tabkey.active,button.tabkey:focus{outline:4px solid #222}
+.tabpane{display:none}.tabpane.active{display:block}
