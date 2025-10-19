@@ -63,6 +63,27 @@
   </div>
 </div>
 <footer class="bar bottom">WHEFAX</footer>
+
+<div class="bar bottom" id="wordLinks">
+  <a href="#" class="btn red"   data-go="deals">DEALS</a>&nbsp;
+  <a href="#" class="btn green" data-go="finder">FINDER</a>&nbsp;
+  <a href="#" class="btn yellow" data-go="request">REQUEST</a>&nbsp;
+  <a href="#" class="btn blue"  data-go="about">ABOUT</a>
+</div>
+<script>
+  (function(){
+    const bar=document.getElementById('wordLinks');
+    if(!bar) return;
+    bar.addEventListener('click', function(e){
+      const a=e.target.closest('a[data-go]'); if(!a) return;
+      e.preventDefault();
+      const name=a.getAttribute('data-go');
+      const key=document.querySelector('.tabkey[data-tab="'+name+'"]');
+      if(key){ key.click(); }
+    });
+  })();
+</script>
+
 <template id="dealCard"><div class="deal"><div class="left"><div class="title"></div><div class="meta"></div></div><div class="right"><img class="img" alt=""><div class="price"></div></div></div></template>
 <script src="user.js"></script>
 </body></html>

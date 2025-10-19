@@ -25,3 +25,10 @@ button.tabkey.red{border-color:#f00;color:#f00}button.tabkey.green{border-color:
 button.tabkey.yellow{border-color:#ff0;color:#ff0}button.tabkey.blue{border-color:#00f;color:#00f}
 button.tabkey.active,button.tabkey:focus{outline:4px solid #222}
 .tabpane{display:none}.tabpane.active{display:block}
+
+.btn.yellow{border-color:#ff0;color:#ff0}
+
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.btn.flight{border-color:#f00;color:#f00}
+.btn.hotel{border-color:#0f0;color:#0f0}
+.btn.talk{border-color:#ff0;color:#ff0}

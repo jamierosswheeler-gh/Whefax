@@ -24,8 +24,23 @@ document.addEventListener('DOMContentLoaded', function(){ const keys=[...documen
 // Finder -> WhatsApp
 (function(){ const btn=document.getElementById('finderSend'); if(!btn) return; const v=id=>{const el=document.getElementById(id); return el?el.value.trim():'';};
   btn.addEventListener('click', ()=>{ const phone=(localStorage.getItem('whefax.whats')||'').replace(/[^\d]/g,''); if(!phone) return alert('WhatsApp number not set. Admin → Settings.');
-    const parts=['New holiday request:', v('f_contact')&&('CONTACT: '+v('f_contact')), v('f_where')&&('WHERE: '+v('f_where')), v('f_airport')&&('DEPARTURE AIRPORT: '+v('f_airport')), v('f_length')&&('HOW LONG: '+v('f_length')), v('f_when')&&('WHEN: '+v('f_when')), v('f_who')&&('WHO: '+v('f_who')), v('f_budget')&&('BUDGET: '+v('f_budget')), v('f_board')&&('BOARD BASIS: '+v('f_board')), v('f_travel')&&('MAX TRAVEL TIME: '+v('f_travel')), v('f_other')&&('OTHER INFO: '+v('f_other'))].filter(Boolean);
-    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(parts.join('\\n')),'_blank'); }); })();
+    const parts=[
+      'NEW HOLIDAY REQUEST',
+      '',
+      v('f_contact')&&('Contact: '+v('f_contact')),
+      v('f_where')&&('Where: '+v('f_where')),
+      v('f_airport')&&('Departure airport: '+v('f_airport')),
+      v('f_length')&&('How long: '+v('f_length')),
+      v('f_when')&&('When: '+v('f_when')),
+      v('f_who')&&('Who: '+v('f_who')),
+      v('f_budget')&&('Budget: '+v('f_budget')),
+      v('f_board')&&('Board: '+v('f_board')),
+      v('f_travel')&&('Max travel time: '+v('f_travel')),
+      v('f_other')&&'Other info:',
+      v('f_other')&&v('f_other')
+    ].filter(Boolean);
+    const body = parts.join('\n');
+    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(body),'_blank'); }); })();
 // Request -> WhatsApp
 (function(){ const btn=document.getElementById('reqSend'); if(!btn) return;
   btn.addEventListener('click', ()=>{ const phone=(localStorage.getItem('whefax.whats')||'').replace(/[^\d]/g,''); if(!phone) return alert('WhatsApp number not set. Admin → Settings.');
