@@ -1,0 +1,28 @@
+{
+  "updated": "2025-10-19",
+  "deals": [
+    {
+      "id": 1,
+      "title": "Tenerife \u2022 \u00a3499",
+      "origin": "London Gatwick",
+      "destination": "Tenerife",
+      "dates": "3\u201310 Nov",
+      "price": "\u00a3499",
+      "image": "",
+      "links": [
+        "https://example.com/aff-flight",
+        "https://example.com/aff-hotel"
+      ],
+      "flights": "LGW \u2192 TFS, 07:00 outbound, 3 Nov; return 10 Nov",
+      "hotel": "Bahia Principe Sunlight Tenerife, sea-view room",
+      "board": "All Inclusive",
+      "transfers": "Shared coach included",
+      "other": "23kg bag + priority boarding",
+      "tags": [
+        "Beach",
+        "All Inclusive",
+        "Winter Sun"
+      ]
+    }
+  ]
+}
