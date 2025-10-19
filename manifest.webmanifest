@@ -1,7 +1,6 @@
 {
-  "name": "WheelerFax",
-  "short_name": "WheelerFax",
-  "description": "Ceefax/Teletext-styled travel deals with easy phone-only admin.",
+  "name": "WHEFAX",
+  "short_name": "WHEFAX",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",

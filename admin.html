@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WHEFAX Admin</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/icon-192.png"><link rel="apple-touch-icon" href="assets/icon-192.png"><link rel="stylesheet" href="styles.css">
+<script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))}</script></head>
+<body><header class="bar top"><div class="brand"><img src="assets/logo-whefax.png" alt="WHEFAX"></div></header>
+<div class="container"><div class="pagebar"><div class="key red">700 Admin</div><div class="key green">710 Add Deal</div><div class="key yellow">720 Tags</div><div class="key blue">799 Export</div></div>
+<div class="ticker"><span>Admin area — no public link.</span></div>
+<h1 class="title">Admin</h1>
+<div class="card"><div class="kv"><div>Admin PIN</div><div><input id="pin" class="input" placeholder="Set or enter PIN"></div></div><div class="tags"><a class="btn" id="setPin">Set/Update PIN</a><a class="btn" id="unlock">Unlock</a></div><p class="notice">Client-side PIN only (obfuscation). Keep this URL private.</p></div>
+<div id="panel" class="card" style="display:none">
+<h2 class="sub">Add a Deal</h2><textarea id="raw" rows="10" class="input" placeholder="Flights:, Hotel:, Board:, Transfers:, Other: + price/dates/origin/destination"></textarea>
+<input id="links" class="input" placeholder="Affiliate links (comma separated)"><input id="image" class="input" placeholder="Cover image URL (optional)"><input id="tagsInput" class="input" placeholder="Tags (comma separated)">
+<div class="tags" id="quickTags"><span class="tag">Beach</span><span class="tag">City Break</span><span class="tag">All Inclusive</span><span class="tag">Family</span><span class="tag">Ski</span><span class="tag">Weekend</span><span class="tag">Long Haul</span><span class="tag">Winter Sun</span></div>
+<div class="tags"><a class="btn" id="condense">Condense</a><a class="btn" id="save">Save Locally</a></div><pre id="preview" class="card"></pre>
+<h2 class="sub">Publish</h2><div class="tags"><a class="btn" id="export">Export deals.json</a><label class="btn"><input id="import" type="file" accept="application/json" hidden>Import JSON</label></div>
+<p class="notice">Upload exported deals.json to <code>/data/deals.json</code> in your repo.</p></div></div><footer class="bar bottom">WHEFAX</footer><script src="admin.js"></script></body></html>

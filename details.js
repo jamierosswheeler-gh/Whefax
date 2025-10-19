@@ -1,0 +1,5 @@
+function h(el, html){el.innerHTML=html||'';} const d=JSON.parse(sessionStorage.getItem('whefax.detail')||'{}');
+document.getElementById('title').textContent=d.title||'Deal'; h(document.getElementById('dates'), d.dates||''); h(document.getElementById('route'), [d.origin,'→',d.destination].filter(Boolean).join(' ')); h(document.getElementById('price'), d.price||'');
+h(document.getElementById('flights'), (d.flights||'').replace(/\n/g,'<br>')); h(document.getElementById('hotel'), (d.hotel||'').replace(/\n/g,'<br>')); h(document.getElementById('board'), (d.board||'').replace(/\n/g,'<br>')); h(document.getElementById('transfers'), (d.transfers||'').replace(/\n/g,'<br>')); h(document.getElementById('other'), (d.other||'').replace(/\n/g,'<br>'));
+const links=document.getElementById('links'); (d.links||[]).forEach((u,i)=>{const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='Book '+(i+1); a.className='btn'; links.appendChild(a);});
+const tags=document.getElementById('tags'); (d.tags||[]).forEach(t=>{const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s);});

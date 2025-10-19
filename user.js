@@ -1,0 +1,10 @@
+async function loadDeals(){try{const r=await fetch('data/deals.json',{cache:'no-store'});const j=await r.json();return j;}catch(e){console.log(e);return {updated:'',deals:[]};}}
+const wrap=document.getElementById('wrap'), q=document.getElementById('q'), tagWrap=document.getElementById('tagFilter'), tickerText=document.getElementById('tickerText');
+let deals=[], activeTags=new Set();
+function render(filter=''){wrap.innerHTML='';const f=filter.toLowerCase();let list=deals.filter(d=>JSON.stringify(d).toLowerCase().includes(f)); if(activeTags.size){list=list.filter(d=>(d.tags||[]).some(t=>activeTags.has(t)));}
+  list.forEach(d=>{const tpl=document.getElementById('dealCard').content.cloneNode(true); tpl.querySelector('.title').textContent=d.title||'Deal';
+    tpl.querySelector('.meta').textContent=[d.origin,'→',d.destination,d.dates].filter(Boolean).join('  '); tpl.querySelector('.price').textContent=d.price||'';
+    const img=tpl.querySelector('.img'); if(d.image){img.src=d.image;} else {img.remove();} const card=tpl.children[0]; card.addEventListener('click',()=>{const url=new URL('details.html',location.href); url.searchParams.set('id', d.id||''+Math.random()); sessionStorage.setItem('whefax.detail', JSON.stringify(d)); location.href=url.toString();}); wrap.appendChild(tpl);});}
+function buildTagFilter(all){tagWrap.innerHTML=''; all.sort().forEach(t=>{const s=document.createElement('span'); s.textContent=t; s.className='tag'; s.addEventListener('click',()=>{if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); s.classList.toggle('active'); render(q.value);}); tagWrap.appendChild(s);});}
+loadDeals().then(j=>{deals=j.deals||[]; const tagSet=new Set(); deals.forEach(d=>(d.tags||[]).forEach(t=>tagSet.add(t))); buildTagFilter(Array.from(tagSet)); tickerText.textContent=(j.updated?('Updated '+j.updated+' • '):'')+(deals.length+' deals live • WHEFAX'); render();});
+q.addEventListener('input',e=>render(e.target.value));
