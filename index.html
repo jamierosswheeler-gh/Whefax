@@ -10,6 +10,9 @@
 </head>
 <body>
 <header class="hero"><img src="assets/header-whefax.png" alt="WHEFAX HOLIDAYS"></header>
+
+<div class="ticker-bar"><div class="left">WHEFAX 101</div><div class="right ticker-time">00:00:00</div></div>
+
 <div class="container">
   <div class="card">
     <div class="tabs-bar" role="tablist" aria-label="Sections">
@@ -63,6 +66,17 @@
   </div>
 </div>
 <footer class="bar bottom">WHEFAX</footer>
+<div class="bar bottom teletext-links">
+  <a href="#" data-go="deals"   class="tlink red">DEALS</a>
+  <span class="sep">•</span>
+  <a href="#" data-go="finder"  class="tlink green">FINDER</a>
+  <span class="sep">•</span>
+  <a href="#" data-go="request" class="tlink yellow">REQUEST</a>
+  <span class="sep">•</span>
+  <a href="#" data-go="about"   class="tlink blue">ABOUT</a>
+</div>
+<script>(function(){const c=document.querySelector('.teletext-links'); if(!c) return; c.addEventListener('click',function(e){const a=e.target.closest('a[data-go]'); if(!a) return; e.preventDefault(); const name=a.getAttribute('data-go'); const key=document.querySelector('.tabkey[data-tab="'+name+'"]'); if(key){key.click();} else { try{localStorage.setItem('whefax.tab', name);}catch(_){} window.location.href='index.html'; } });})();</script>
+
 
 <div class="bar bottom" id="wordLinks">
   <a href="#" class="btn red"   data-go="deals">DEALS</a>&nbsp;
@@ -86,4 +100,7 @@
 
 <template id="dealCard"><div class="deal"><div class="left"><div class="title"></div><div class="meta"></div></div><div class="right"><img class="img" alt=""><div class="price"></div></div></div></template>
 <script src="user.js"></script>
+
+<script>(function(){function tick(){var el=document.querySelector('.ticker-time'); if(!el) return; var n=new Date(); var hh=String(n.getHours()).padStart(2,'0'); var mm=String(n.getMinutes()).padStart(2,'0'); var ss=String(n.getSeconds()).padStart(2,'0'); el.textContent=hh+':'+mm+':'+ss;} setInterval(tick,1000); setTimeout(tick,50);} )();</script>
+
 </body></html>

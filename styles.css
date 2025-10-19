@@ -32,3 +32,20 @@ button.tabkey.active,button.tabkey:focus{outline:4px solid #222}
 .btn.flight{border-color:#f00;color:#f00}
 .btn.hotel{border-color:#0f0;color:#0f0}
 .btn.talk{border-color:#ff0;color:#ff0}
+
+/* Larger base font for iPhone readability */
+body{font-size:18px;line-height:1.45}
+
+/* Teletext text-only footer links */
+.teletext-links{justify-content:center;gap:14px}
+.teletext-links .tlink{border:none;text-decoration:none;font-weight:900}
+.teletext-links .red{color:#f00}.teletext-links .green{color:#0f0}.teletext-links .yellow{color:#ff0}.teletext-links .blue{color:#00f}
+.teletext-links .sep{opacity:.7}
+
+/* Ticker bar (dynamic time) */
+.ticker-bar{display:flex;justify-content:space-between;align-items:center;background:#000;border-bottom:4px solid #00f;padding:8px 14px;font-weight:900}
+.ticker-bar .left{color:#0ff}.ticker-bar .right{color:#ff0;font-variant-numeric:tabular-nums}
+
+/* Improve tag spacing on details page */
+#tags .tag{margin:6px 10px 0 0}
+.title{font-size:1.6rem}
