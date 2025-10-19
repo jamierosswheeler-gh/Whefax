@@ -1,1 +1,26 @@
-{"updated": "", "deals": []}
+{
+  "updated": "2025-10-19",
+  "deals": [
+    {
+      "id": 1,
+      "title": "Paris City Break \u2022 \u00a3199",
+      "origin": "London",
+      "destination": "Paris",
+      "dates": "12\u201315 Nov",
+      "price": "\u00a3199",
+      "image": "",
+      "flightLink": "https://example.com/aff-flight",
+      "hotelLink": "https://example.com/aff-hotel",
+      "links": [],
+      "flights": "LON \u2192 PAR, morning outbound; return evening",
+      "hotel": "Ibis Styles Paris (central)",
+      "board": "Room Only",
+      "transfers": "Metro/RER not included",
+      "other": "Cabin bag only",
+      "tags": [
+        "City Break",
+        "Weekend"
+      ]
+    }
+  ]
+}
