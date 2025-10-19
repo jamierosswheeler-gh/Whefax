@@ -33,19 +33,34 @@ button.tabkey.active,button.tabkey:focus{outline:4px solid #222}
 .btn.hotel{border-color:#0f0;color:#0f0}
 .btn.talk{border-color:#ff0;color:#ff0}
 
-/* Larger base font for iPhone readability */
-body{font-size:18px;line-height:1.45}
+/* Ticker above header: cyan text */
+.ticker-bar.top{display:flex;justify-content:space-between;align-items:center;background:#000;border-bottom:4px solid #00f;padding:6px 12px;font-weight:900}
+.ticker-bar.top .left{color:#0ff}.ticker-bar.top .right{color:#0ff;font-variant-numeric:tabular-nums}
 
-/* Teletext text-only footer links */
-.teletext-links{justify-content:center;gap:14px}
-.teletext-links .tlink{border:none;text-decoration:none;font-weight:900}
-.teletext-links .red{color:#f00}.teletext-links .green{color:#0f0}.teletext-links .yellow{color:#ff0}.teletext-links .blue{color:#00f}
-.teletext-links .sep{opacity:.7}
+/* Bottom colourful nav links (no borders) */
+.bottom-links{display:flex;justify-content:center;gap:12px;margin:10px 0 6px 0}
+.navlink{font-weight:900;text-decoration:none;border:none}
+.navlink.red{color:#f00}.navlink.green{color:#0f0}.navlink.yellow{color:#ff0}.navlink.blue{color:#00f}
+.bottom-links .sep{opacity:.7}
 
-/* Ticker bar (dynamic time) */
-.ticker-bar{display:flex;justify-content:space-between;align-items:center;background:#000;border-bottom:4px solid #00f;padding:8px 14px;font-weight:900}
-.ticker-bar .left{color:#0ff}.ticker-bar .right{color:#ff0;font-variant-numeric:tabular-nums}
+/* Peter Kay banner */
+.kay-banner{border-top:4px solid #f00;border-bottom:4px solid #f00;text-align:center;padding:8px 10px;margin-bottom:12px}
+.kay-banner a{color:#ff0;text-decoration:none;font-weight:900}
 
-/* Improve tag spacing on details page */
+/* Return to deals */
+.retwrap{text-align:center;margin-top:8px;margin-bottom:4px}
+.retdeal{display:inline-block;color:#ff0;border:3px solid #ff0;padding:6px 10px;text-decoration:none;font-weight:900}
+
+/* Details meta list tidy */
+.kvline{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #222}
+.kvline .k{color:#0ff;min-width:90px}
+
+/* Tag spacing */
 #tags .tag{margin:6px 10px 0 0}
-.title{font-size:1.6rem}
+
+/* Link row (details) */
+.linkrow a{margin-right:10px;font-weight:900;text-decoration:none}
+.linkrow a.flight{color:#f00}
+.linkrow a.hotel{color:#0f0}
+.linkrow a.more{color:#00f}
+.linkrow a.talk{color:#ff0}

@@ -1,18 +1,21 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WHEFAX</title>
-<link rel="manifest" href="manifest.webmanifest?v=3"><meta name="theme-color" content="#000000">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest?v=6?v=5?v=4"><meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=6">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=6">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=6">
+<link rel="stylesheet" href="styles.css?v=6?v=5?v=4">
 <script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))}</script>
 </head>
 <body>
-<header class="hero"><img src="assets/header-whefax.png" alt="WHEFAX HOLIDAYS"></header>
 
-<div class="ticker-bar"><div class="left">WHEFAX 101</div><div class="right ticker-time">00:00:00</div></div>
-
+<div class="ticker-bar top">
+  <div class="left">WHEFAX 101</div>
+  <div class="right ticker-time">00:00:00 — 0000-00-00</div>
+</div>
+<script>(function(){function tick(){var el=document.querySelector('.ticker-time'); if(!el) return; var n=new Date(); var hh=('0'+n.getHours()).slice(-2); var mm=('0'+n.getMinutes()).slice(-2); var ss=('0'+n.getSeconds()).slice(-2); var yyyy=n.getFullYear(); var mo=('0'+(n.getMonth()+1)).slice(-2); var dd=('0'+n.getDate()).slice(-2); el.textContent=hh+':'+mm+':'+ss+' — '+yyyy+'-'+mo+'-'+dd;} setInterval(tick,1000); setTimeout(tick,50);} )();</script>
+<header class="hero"><img src="assets/header-whefax-v5.png?v=5" alt="WHEFAX HOLIDAYS"></header>
 <div class="container">
   <div class="card">
     <div class="tabs-bar" role="tablist" aria-label="Sections">
@@ -65,17 +68,21 @@
     </div>
   </div>
 </div>
-<footer class="bar bottom">WHEFAX</footer>
-<div class="bar bottom teletext-links">
-  <a href="#" data-go="deals"   class="tlink red">DEALS</a>
+<footer class="bar bottom"></footer>
+
+<div class="bottom-links">
+  <a href="index.html" class="navlink red">DEALS</a>
   <span class="sep">•</span>
-  <a href="#" data-go="finder"  class="tlink green">FINDER</a>
+  <a href="index.html#finder" class="navlink green" data-gotab="finder">FINDER</a>
   <span class="sep">•</span>
-  <a href="#" data-go="request" class="tlink yellow">REQUEST</a>
+  <a href="index.html#request" class="navlink yellow" data-gotab="request">REQUEST</a>
   <span class="sep">•</span>
-  <a href="#" data-go="about"   class="tlink blue">ABOUT</a>
+  <a href="index.html#about" class="navlink blue" data-gotab="about">ABOUT</a>
 </div>
-<script>(function(){const c=document.querySelector('.teletext-links'); if(!c) return; c.addEventListener('click',function(e){const a=e.target.closest('a[data-go]'); if(!a) return; e.preventDefault(); const name=a.getAttribute('data-go'); const key=document.querySelector('.tabkey[data-tab="'+name+'"]'); if(key){key.click();} else { try{localStorage.setItem('whefax.tab', name);}catch(_){} window.location.href='index.html'; } });})();</script>
+<script>(function(){document.addEventListener('click',function(e){var a=e.target.closest('a[data-gotab]'); if(!a) return; e.preventDefault(); try{localStorage.setItem('whefax.tab', a.getAttribute('data-gotab'));}catch(ex){} window.location.href='index.html';});})();</script>
+<div class="kay-banner">
+  <a href="https://www.youtube.com/results?search_query=peter+kay+teletext+holidays+short" target="_blank" rel="noopener">WEEFAX HOLIDAYS - BOOK IT. PACK IT. F##K OFF.</a>
+</div>
 
 
 <div class="bar bottom" id="wordLinks">
@@ -99,8 +106,5 @@
 </script>
 
 <template id="dealCard"><div class="deal"><div class="left"><div class="title"></div><div class="meta"></div></div><div class="right"><img class="img" alt=""><div class="price"></div></div></div></template>
-<script src="user.js"></script>
-
-<script>(function(){function tick(){var el=document.querySelector('.ticker-time'); if(!el) return; var n=new Date(); var hh=String(n.getHours()).padStart(2,'0'); var mm=String(n.getMinutes()).padStart(2,'0'); var ss=String(n.getSeconds()).padStart(2,'0'); el.textContent=hh+':'+mm+':'+ss;} setInterval(tick,1000); setTimeout(tick,50);} )();</script>
-
+<script src="user.js?v=6?v=5?v=4"></script>
 </body></html>
