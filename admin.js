@@ -124,3 +124,31 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 });
+
+// Admin: list deals + reset hotness
+document.addEventListener('DOMContentLoaded', async function(){
+  var wrap=document.getElementById('deal_admin_list'); if(!wrap)return;
+  try{
+    const r=await fetch('data/deals.json?v='+Date.now(),{cache:'no-store'});
+    const j=await r.json(); const deals=j.deals||[];
+    wrap.innerHTML=deals.map(d=>`
+      <div class="deal" style="border-color:#ff0">
+        <div class="dtitle">${d.title||'Untitled'}</div>
+        <div>Hotness: ${Number(d.hot||0)}</div>
+        <button class="btn" data-reset="${d.id||''}" style="color:#ff0;border-color:#ff0">Reset hotness</button>
+      </div>`).join('');
+    wrap.onclick=async e=>{
+      var btn=e.target.closest('button[data-reset]'); if(!btn)return;
+      var id=btn.dataset.reset; btn.disabled=true; btn.textContent='Resetting…';
+      try{
+        await ghUpdateJson('data/deals.json',cur=>{
+          const j2=cur||{deals:[]};
+          j2.deals=(j2.deals||[]).map(d=>{if(String(d.id)===String(id))d.hot=0;return d;});
+          return j2;
+        });
+        btn.textContent='Reset ✓';
+      }catch(err){btn.textContent='Error';}
+      setTimeout(()=>{btn.disabled=false;btn.textContent='Reset hotness';},1500);
+    };
+  }catch(e){wrap.textContent='Could not load deals.';}
+});
