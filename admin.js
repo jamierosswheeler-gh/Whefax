@@ -21,7 +21,6 @@ async function ghUpdateJson(path, mutateFn, statusEl){
     if (r.status === 404) return { json: null, sha: null }; // new file
     if (!r.ok) throw new Error('Read failed: '+r.status);
     const meta = await r.json();
-    // meta.content is base64; decode safely
     const decoded = decodeURIComponent(escape(atob((meta.content||'').replace(/\n/g,''))));
     const content = decoded ? JSON.parse(decoded) : null;
     return { json: content, sha: meta.sha };
@@ -37,7 +36,6 @@ async function ghUpdateJson(path, mutateFn, statusEl){
     return r;
   }
 
-  // first attempt
   let { json, sha } = await readLatest();
   json = mutateFn(json || null);
   let resp = await writeWithSha(json, sha);
@@ -50,7 +48,7 @@ async function ghUpdateJson(path, mutateFn, statusEl){
   if (!resp.ok) throw new Error('Update failed: '+resp.status);
 }
 
-// Deals form
+// Deals form (with tags)
 document.addEventListener('DOMContentLoaded', function(){
   var form=document.getElementById('deal_form'); if(!form) return;
   form.addEventListener('submit', async function(e){
@@ -62,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var price=document.getElementById('dl_price').value.trim();
     var flight_link=document.getElementById('dl_flight').value.trim();
     var hotel_link=document.getElementById('dl_hotel').value.trim();
+    var tags=(document.getElementById('dl_tags')?document.getElementById('dl_tags').value:'').split(',').map(s=>s.trim()).filter(Boolean);
     var other=document.getElementById('dl_other').value.trim();
     if(!title){ status.textContent='Please add a title'; return; }
     try{
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(){
           flight_link, hotel_link,
           flight_info: '', hotel_info: '',
           board: '', transfers: '', other,
-          tags: destination? [destination] : []
+          tags: (tags && tags.length? tags : (destination? [destination] : []))
         });
         return j;
       }, status);
@@ -83,6 +82,23 @@ document.addEventListener('DOMContentLoaded', function(){
       status.textContent='Error: '+err.message;
     }
   });
+});
+
+// Show existing tags to reuse
+document.addEventListener('DOMContentLoaded', async function(){
+  var exist = document.getElementById('existing_tags_wrap');
+  if(!exist) return;
+  try{
+    const r = await fetch('data/deals.json?v='+Date.now(), {cache:'no-store'});
+    const j = await r.json();
+    const set = new Set();
+    (j.deals||[]).forEach(d => (d.tags||[]).forEach(t => set.add(t)));
+    const tags = Array.from(set).sort();
+    if(!tags.length){ exist.textContent = 'No existing tags yet.'; return; }
+    exist.innerHTML = 'Existing tags: ' + tags.map(t => '<span class="tag">'+t+'</span>').join(' ');
+  }catch(e){
+    exist.textContent = 'Could not load existing tags.';
+  }
 });
 
 // Blog form
