@@ -3,57 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="manifest" href="manifest.webmanifest?v=8.3">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=8.3">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=8.3">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=8.3">
-<link rel="stylesheet" href="styles.css?v=8.3">
-
+<link rel="manifest" href="manifest.webmanifest?v=8.4">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=8.4">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=8.4">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=8.4">
+<link rel="stylesheet" href="styles.css?v=8.4">
 <title>WHEFAX</title>
-<script src="user.js?v=8.3" defer></script>
+<script src="user.js?v=8.4" defer></script>
 </head>
 <body>
 
+<!-- ✅ Top ticker -->
 <div class="ticker-bar top">
   <div class="left">WHEFAX 101</div>
   <div class="right ticker-time">Mon 01st Jan 00:00:00</div>
 </div>
-<script>(function(){
+<script>
+(function(){
   function ordinal(n){var s=["th","st","nd","rd"],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
   var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  function tick(){var el=document.querySelector('.ticker-time'); if(!el) return; var d=new Date(); var txt=days[d.getDay()]+' '+ordinal(d.getDate())+' '+months[d.getMonth()]+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2); el.textContent=txt;}
-  setInterval(tick,1000); setTimeout(tick,50);
-})();</script>
+  function tick(){
+    var el=document.querySelector('.ticker-time'); if(!el) return;
+    var d=new Date();
+    var txt=days[d.getDay()]+' '+ordinal(d.getDate())+' '+months[d.getMonth()]+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2);
+    el.textContent=txt;
+  }
+  setInterval(tick,1000); tick();
+})();
+</script>
 
-<header class="hero"><img src="assets/header-whefax.png?v=8.3" alt="WHEFAX header"></header>
+<!-- ✅ Header -->
+<header class="hero">
+  <img src="assets/header.svg?v=8.4" alt="WHEFAX header">
+</header>
 
+<!-- ✅ Top nav (below header) -->
 <div class="topnav" role="navigation" aria-label="Top navigation">
-  <a href="index.html" class="toptab red"   data-gotab="deals">DEALS</a>
-  <a href="index.html#request" class="toptab green"  data-gotab="request">REQUEST</a>
-  <a href="index.html#blog"    class="toptab yellow" data-gotab="blog">BLOG</a>
-  <a href="index.html#about"   class="toptab blue"   data-gotab="about">ABOUT</a>
+  <a href="index.html" class="toptab red" data-gotab="deals">DEALS</a>
+  <a href="index.html#request" class="toptab green" data-gotab="request">REQUEST</a>
+  <a href="index.html#blog" class="toptab yellow" data-gotab="blog">BLOG</a>
+  <a href="index.html#about" class="toptab blue" data-gotab="about">ABOUT</a>
 </div>
 <script>
 document.addEventListener('click',function(e){
-  var a=e.target.closest('a.toptab[data-gotab]'); if(!a) return;
+  var a=e.target.closest('a.toptab[data-gotab]');
+  if(!a)return;
   e.preventDefault();
-  try{localStorage.setItem('whefax.tab', a.getAttribute('data-gotab'));}catch(_){}
+  localStorage.setItem('whefax.tab',a.getAttribute('data-gotab'));
   window.location.href='index.html';
 });
 </script>
 
+<!-- ✅ Main tabs -->
 <main>
+  <!-- Deals -->
   <div id="tab-deals" class="tabpane">
     <div class="card">
       <h2 class="title" style="margin-top:0">latest deals</h2>
+      <div class="filters" id="deal_filters"></div>
       <div id="deal_list">Loading deals…</div>
     </div>
   </div>
 
+  <!-- Request -->
   <div id="tab-request" class="tabpane" style="display:none">
     <div class="card">
-      <h2 class="title" style="margin-top:0">your personal holiday finder</h2>
-      <p class="notice">Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
+      <h2 class="title">your personal holiday finder</h2>
+      <p>Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
       <form id="finder_form">
         <label>WHERE<br><input id="rq_where" placeholder="e.g., Paris or Tenerife"></label><br><br>
         <label>HOW LONG<br><input id="rq_length" placeholder="e.g., 3 nights"></label><br><br>
@@ -63,11 +79,12 @@ document.addEventListener('click',function(e){
         <label>OTHER INFO<br><textarea id="rq_other" rows="4" placeholder="Any preferences…"></textarea></label><br><br>
         <label>Your email or WhatsApp number<br><input id="rq_contact" placeholder="e.g., +447... or you@example.com"></label><br><br>
         <button type="submit">Find my dream holiday</button>
-        <span id="rq_status" class="notice"></span>
+        <span id="rq_status"></span>
       </form>
     </div>
   </div>
 
+  <!-- Blog -->
   <div id="tab-blog" class="tabpane" style="display:none">
     <div class="card">
       <h2 class="title" style="margin-top:0">whefax blog</h2>
@@ -75,31 +92,42 @@ document.addEventListener('click',function(e){
     </div>
   </div>
 
+  <!-- About -->
   <div id="tab-about" class="tabpane" style="display:none">
     <div class="card">
-      <h2 class="title" style="margin-top:0">about WHEFAX</h2>
+      <h2 class="title">about WHEFAX</h2>
       <p>Teletext-style, phone-first travel deals. Paste → publish → book.</p>
-      <p class="notice">Affiliate links may be used. Prices and availability can change at any time.</p>
+      <p>Affiliate links may be used. Prices and availability can change at any time.</p>
       <div class="info-block"><div class="label">Website</div><div class="value"><span id="about_site"></span></div></div>
       <div class="info-block"><div class="label">WhatsApp</div><div class="value"><span id="about_whats"></span></div></div>
     </div>
   </div>
 </main>
 
+<!-- ✅ Footer -->
 <footer class="bar bottom"></footer>
 <div class="kay-banner">
   <a href="https://youtu.be/xfXg5BGXw-w?si=LDGyP963HvJO3dQd" target="_blank" rel="noopener">
     WHEFAX HOLIDAYS<br>BOOK IT. PACK IT. F##K OFF.
   </a>
 </div>
+
 <div class="bottom-links">
   <a href="index.html" class="navlink red">DEALS</a>
   <a href="index.html#request" class="navlink green" data-gotab="request">REQUEST</a>
   <a href="index.html#blog" class="navlink yellow" data-gotab="blog">BLOG</a>
   <a href="index.html#about" class="navlink blue" data-gotab="about">ABOUT</a>
 </div>
+
 <script>
-document.addEventListener('click',function(e){var a=e.target.closest('a.navlink[data-gotab]'); if(!a) return; e.preventDefault(); try{{localStorage.setItem('whefax.tab', a.getAttribute('data-gotab'));}}catch(_{{}}){{}} location.href='index.html';});
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a.navlink[data-gotab]');
+  if(!a)return;
+  e.preventDefault();
+  localStorage.setItem('whefax.tab',a.getAttribute('data-gotab'));
+  location.href='index.html';
+});
 </script>
+
 </body>
 </html>
