@@ -48,7 +48,8 @@
       "other": "Example deal",
       "tags": [
         "Paris"
-      ]
+      ],
+      "featured": true
     }
   ]
 }
