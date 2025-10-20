@@ -2,6 +2,27 @@
 if ('serviceWorker' in navigator) {
   try { navigator.serviceWorker.register('sw.js?v=8.4'); } catch(e) {}
 }
+// --- Hard cache flush when version changes ---
+const WHEFAX_VERSION = '8.4.2';
+(function(){
+  try {
+    var prev = localStorage.getItem('whefax.version');
+    if (prev !== WHEFAX_VERSION) {
+      localStorage.setItem('whefax.version', WHEFAX_VERSION);
+
+      // Clear caches
+      if ('caches' in window) {
+        caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))));
+      }
+      // Unregister all service workers
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister())));
+      }
+      // Small delay, then force reload once
+      setTimeout(function(){ location.replace(location.pathname + location.search + (location.search ? '&' : '?') + 'v=' + WHEFAX_VERSION); }, 200);
+    }
+  } catch(e){}
+})();
 
 // ----- Tabs -----
 function setTab(tab){
