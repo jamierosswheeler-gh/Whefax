@@ -1,6 +1,23 @@
 {
   "deals": [
     {
+      "id": "mgyv0mpw",
+      "title": "New York 5 nights",
+      "destination": "New york",
+      "dates": "20-23rd October",
+      "price": "£425",
+      "flight_link": "Www.ba.com",
+      "hotel_link": "Www.ba.com",
+      "flight_info": "",
+      "hotel_info": "",
+      "board": "",
+      "transfers": "",
+      "other": "Bed and breakfast in a 4 star hotel with transfers and a trip to see the Statue of Liberty. 23kg of luggage and free lounge pass",
+      "tags": [
+        "New york"
+      ]
+    },
+    {
       "id": "mgyuly58",
       "title": "Bdbdb",
       "destination": "",
