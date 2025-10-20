@@ -1,25 +1,24 @@
-const CACHE = 'whefax-master-v8-4-2';
-self.addEventListener('install', e => { self.skipWaiting(); });
-self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
-
-self.addEventListener('fetch', (event) => {
-  const u = new URL(event.request.url);
-  // Always network for live JSON (deals + blog)
-  if (u.pathname.endsWith('/data/deals.json') || u.pathname.endsWith('/data/blog.json')) {
-    return;
-  }
-  // Cache-first for everything else
-  event.respondWith(caches.open(CACHE).then(async cache => {
-    const cached = await cache.match(event.request);
-    if (cached) return cached;
-    try {
-      const res = await fetch(event.request);
-      if (res && res.ok && event.request.method === 'GET' && res.type !== 'opaque') {
-        cache.put(event.request, res.clone());
-      }
-      return res;
-    } catch (e) {
-      return cached || Response.error();
-    }
-  }));
+const CACHE_NAME = "whefax-v10";
+const FILES = [
+  "index.html","styles.css","user.js","backend.js",
+  "manifest.json","assets/header.svg","data/deals.json"
+];
+self.addEventListener("install",e=>{
+  e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(FILES)));
+  self.skipWaiting();
+});
+self.addEventListener("activate",e=>{
+  e.waitUntil(caches.keys().then(k=>Promise.all(k.map(x=>x!==CACHE_NAME&&caches.delete(x)))));
+  self.clients.claim();
+});
+self.addEventListener("fetch",e=>{
+  e.respondWith(
+    caches.match(e.request).then(r=>{
+      const f=fetch(e.request).then(res=>{
+        if(res&&res.ok)caches.open(CACHE_NAME).then(c=>c.put(e.request,res.clone()));
+        return res;
+      }).catch(()=>r);
+      return r||f;
+    })
+  );
 });
