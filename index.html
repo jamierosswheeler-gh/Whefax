@@ -67,23 +67,28 @@ document.addEventListener('click',function(e){
   </div>
 
   <!-- Request -->
-  <div id="tab-request" class="tabpane" style="display:none">
-    <div class="card">
-      <h2 class="title">your personal holiday finder</h2>
-      <p>Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
-      <form id="finder_form">
-        <label>WHERE<br><input id="rq_where" placeholder="e.g., Paris or Tenerife"></label><br><br>
-        <label>HOW LONG<br><input id="rq_length" placeholder="e.g., 3 nights"></label><br><br>
-        <label>WHEN<br><input id="rq_when" placeholder="e.g., 10–15 Nov"></label><br><br>
-        <label>WHO<br><input id="rq_who" placeholder="e.g., 2 adults + 1 child"></label><br><br>
-        <label>BUDGET<br><input id="rq_budget" placeholder="e.g., under £600"></label><br><br>
-        <label>OTHER INFO<br><textarea id="rq_other" rows="4" placeholder="Any preferences…"></textarea></label><br><br>
-        <label>Your email or WhatsApp number<br><input id="rq_contact" placeholder="e.g., +447... or you@example.com"></label><br><br>
-        <button type="submit">Find my dream holiday</button>
-        <span id="rq_status"></span>
-      </form>
+<div id="tab-request" class="tabpane" style="display:none">
+  <div class="card request-wrap">
+    <h2 class="title">your personal holiday finder</h2>
+    <p>Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
+
+    <label for="rq_free">What I want</label>
+    <textarea id="rq_free" class="bigbox" placeholder="e.g., 1 week in Tenerife in March, 2 adults, £1200 budget, pool, near beach..."></textarea>
+
+    <div class="request-actions">
+      <a id="rq_btn_wa" class="btn whatsapp" href="#">Send via WhatsApp</a>
+      <a id="rq_btn_email_toggle" class="btn email" href="#">Via Email</a>
+    </div>
+
+    <div id="rq_email_wrap" class="request-email">
+      <label>Your email</label>
+      <input id="rq_email" type="email" placeholder="you@example.com">
+      <a id="rq_btn_email_send" class="btn email" href="#" style="margin-top:8px;display:inline-block">Submit by Email</a>
+      <span id="rq_status" class="notice" style="margin-left:8px"></span>
     </div>
   </div>
+</div>
+
 
   <!-- Blog -->
   <div id="tab-blog" class="tabpane" style="display:none">
