@@ -1,11 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240">
   <!-- background -->
   <rect width="1200" height="240" fill="#000"/>
   <!-- main blue band -->
   <rect x="0" y="36" width="1200" height="120" fill="#00f"/>
-  <!-- WHEFAX + HOLIDAYS (tight together) -->
+
+  <!-- WHEFAX + HOLIDAYS (closer together; adjust x if needed) -->
   <text x="24"  y="120" font-family="monospace" font-size="92" font-weight="700" fill="#ff0">WHEFAX</text>
-  <text x="360" y="120" font-family="monospace" font-size="52" font-weight="700" fill="#0ff">HOLIDAYS</text>
+  <text x="480" y="120" font-family="monospace" font-size="52" font-weight="700" fill="#0ff">HOLIDAYS</text>
 
   <!-- teletext bars -->
   <rect x="0" y="170" width="1200" height="26" fill="#0ff"/>
