@@ -1,25 +1,51 @@
 {
-  "updated": "2025-10-19",
+  "updated": "2025-10-20",
   "deals": [
     {
-      "id": 1,
-      "title": "Paris City Break \u2022 \u00a3199",
-      "origin": "London",
-      "destination": "Paris",
-      "dates": "12\u201315 Nov",
-      "price": "\u00a3199",
+      "id": 1760942406097,
+      "title": "Getaway",
+      "price": "",
+      "dates": "",
+      "origin": "",
+      "destination": "",
       "image": "",
-      "flightLink": "https://example.com/aff-flight",
-      "hotelLink": "https://example.com/aff-hotel",
-      "links": [],
-      "flights": "LON \u2192 PAR, morning outbound; return evening",
-      "hotel": "Ibis Styles Paris (central)",
-      "board": "Room Only",
-      "transfers": "Metro/RER not included",
-      "other": "Cabin bag only",
+      "flightLink": "Hh",
+      "hotelLink": "Hh",
+      "links": [
+        "Hh"
+      ],
+      "flights": "",
+      "hotel": "",
+      "board": "",
+      "transfers": "",
+      "other": "",
+      "summary": "",
       "tags": [
-        "City Break",
-        "Weekend"
+        "Beach"
+      ]
+    },
+    {
+      "id": 1760916831647,
+      "title": "Getaway",
+      "price": "",
+      "dates": "",
+      "origin": "",
+      "destination": "",
+      "image": "",
+      "flightLink": "Ndjd",
+      "hotelLink": "Ndhjd",
+      "links": [
+        "Ndjd",
+        "Ndhjd"
+      ],
+      "flights": "",
+      "hotel": "",
+      "board": "",
+      "transfers": "",
+      "other": "",
+      "summary": "",
+      "tags": [
+        "Family"
       ]
     }
   ]
