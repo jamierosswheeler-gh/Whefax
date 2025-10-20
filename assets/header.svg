@@ -1,15 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300">
-  <rect width="1200" height="300" fill="#000"/>
-  <rect x="0" y="36" width="1200" height="184" fill="#00f"/>
-  <text x="24" y="150" font-family="monospace" font-size="100" font-weight="700" fill="#ff0">WHEFAX</text>
-  <text x="550" y="150" font-family="monospace" font-size="52" font-weight="700" fill="#0ff">HOLIDAYS</text>
-  <rect x="0" y="220" width="1200" height="32" fill="#0ff"/>
-  <rect x="0" y="252" width="1200" height="24" fill="#ff0"/>
-  <!-- simple palm on the right -->
-  <polygon points="1100,120 1118,118 1122,220 1106,220" fill="#f00"/>
-  <polygon points="1054,110 1108,135 1088,150" fill="#0f0"/>
-  <polygon points="1100,98 1108,135 1120,150" fill="#0f0"/>
-  <polygon points="1130,112 1108,135 1140,150" fill="#0f0"/>
-  <polygon points="1090,126 1108,135 1114,150" fill="#0f0"/>
-  <polygon points="1112,120 1108,135 1134,150" fill="#0f0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240">
+  <!-- background -->
+  <rect width="1200" height="240" fill="#000"/>
+  <!-- main blue band -->
+  <rect x="0" y="36" width="1200" height="120" fill="#00f"/>
+  <!-- WHEFAX + HOLIDAYS (tight together) -->
+  <text x="24"  y="120" font-family="monospace" font-size="92" font-weight="700" fill="#ff0">WHEFAX</text>
+  <text x="400" y="120" font-family="monospace" font-size="52" font-weight="700" fill="#0ff">HOLIDAYS</text>
+
+  <!-- teletext bars -->
+  <rect x="0" y="170" width="1200" height="26" fill="#0ff"/>
+  <rect x="0" y="196" width="1200" height="18" fill="#ff0"/>
+
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+<path fill="#FF9800" d="M11 11H37V37H11z"></path><path fill="#FF9800" d="M11.272 11.272H36.728V36.728H11.272z" transform="rotate(-45.001 24 24)"></path><path fill="#FFEB3B" d="M13,24c0,6.077,4.923,11,11,11c6.076,0,11-4.923,11-11s-4.924-11-11-11C17.923,13,13,17.923,13,24"></path>
+</svg>
+  <rect x="1036" y="100" width="10" height="6" fill="#f00"/>
 </svg>
