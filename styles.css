@@ -1,35 +1,33 @@
 *{box-sizing:border-box}
-html,body{
-  margin:0; padding:0; background:#000; color:#fff; font-family:monospace;
-}
-a{color:#0ff; text-decoration:none}
-a:hover{text-decoration:underline}
+html,body{margin:0;padding:0;background:#000;color:#fff;font-family:monospace}
+a{color:#0ff;text-decoration:none}
+a:hover{text-decoration:none} /* no underlines site-wide */
 
 /* ===== Ticker ===== */
 .ticker-bar.top{
   position:sticky; top:0; z-index:80;
   display:flex; justify-content:space-between; align-items:center;
-  background:#000; padding:4px 10px; font-weight:700;
-  border-bottom:2px solid #000;
+  background:#000; padding:4px 10px; font-weight:700; border-bottom:2px solid #000;
 }
 .ticker-bar .left{color:#0ff}
-.ticker-bar .right{color:#0ff; font-variant-numeric:tabular-nums;}
+.ticker-bar .right{color:#0ff;font-variant-numeric:tabular-nums}
 
-/* ===== Header (SVG keeps aspect) ===== */
+/* ===== Header (SVG aspect safe) ===== */
 .hero{position:relative; overflow:hidden}
 .hero--ratio-5x1::before{content:""; display:block; padding-top:20%}
 .hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; image-rendering:pixelated}
 
-/* ===== Top nav (sticky, full width) ===== */
+/* ===== Top nav (sticky, colourful bordered tabs) ===== */
 .topnav{
   position:sticky; top:0; z-index:70;
-  display:flex; justify-content:space-around; flex-wrap:wrap;
-  background:#000; padding:6px 8px;
+  display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;
+  background:#000; padding:8px 8px;
 }
 .toptab{
   flex:1 1 25%; text-align:center;
-  font-weight:900; font-size:1rem; padding:10px 0;
-  background:#000; border:none; color:inherit;
+  font-weight:900; font-size:1.05rem; padding:10px 0;
+  background:#000;
+  border:3px solid currentColor; /* restore boxes */
 }
 .toptab.red{color:#f00}
 .toptab.green{color:#0f0}
@@ -38,15 +36,14 @@ a:hover{text-decoration:underline}
 
 /* ===== Page layout ===== */
 main{padding:10px}
-.card{
-  border:4px solid #00f; padding:10px; margin:10px 0; background:#000;
-}
+.card{border:4px solid #00f; padding:10px; margin:10px 0; background:#000}
 .title{color:#ff0; font-weight:900; text-transform:lowercase}
 
-/* ===== Filters (white; active = light blue) ===== */
-.filters{display:flex; flex-wrap:wrap; gap:4px; margin:6px 0 12px}
+/* ===== Filters (UPPERCASE; white; active = light blue) ===== */
+.filters{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px}
 .filter-chip{
-  display:inline-block; padding:4px 10px; border:2px solid #fff; color:#fff; background:#000; border-radius:4px; cursor:pointer;
+  text-transform:uppercase;
+  display:inline-block; padding:6px 12px; border:2px solid #fff; color:#fff; background:#000; border-radius:4px; cursor:pointer
 }
 .filter-chip.active{border-color:#0ff; color:#0ff}
 
@@ -54,51 +51,49 @@ main{padding:10px}
 .deal{
   position:relative; cursor:pointer;
   border:3px solid #0f0; padding:10px; margin:10px 0;
-  min-height:130px; display:flex; flex-direction:column; justify-content:space-between; padding-bottom:48px;
+  min-height:140px; display:flex; flex-direction:column; justify-content:space-between; padding-bottom:56px;
 }
-.deal .dtitle{color:#ff0; font-weight:900; font-size:1.25rem; text-transform:uppercase}
-.deal .tags{display:none} /* hide purple tag row */
+.deal .dtitle{color:#ff0; font-weight:900; font-size:1.28rem; text-transform:uppercase}
+.deal .tags{display:none} /* hide purple tags on cards */
 
-/* Voting widget (styled like your ref) */
+/* Voting widget */
 .vote-panel{
   position:absolute; bottom:8px; right:8px;
-  display:flex; align-items:center; gap:8px;
-  background:#111; padding:4px 8px; border-radius:25px; border:2px solid #444;
+  display:flex; align-items:center; gap:10px;
+  background:#111; padding:5px 10px; border-radius:28px; border:2px solid #444;
 }
 .vote-circle{
-  width:28px; height:28px; border-radius:50%;
+  width:32px; height:32px; border-radius:50%;
   border:2px solid #888; display:flex; align-items:center; justify-content:center;
   cursor:pointer; background:#000;
 }
-.vote-circle svg{width:14px; height:14px}
+.vote-circle svg{width:20px; height:20px}
 .vote-circle.up svg path{fill:#f44}
 .vote-circle.down svg path{fill:#0af}
-.vote-score{font-weight:900; font-size:1.1rem; color:#f44; min-width:50px; text-align:center}
+.vote-score{font-weight:900; font-size:1.15rem; color:#f44; min-width:56px; text-align:center}
 
 /* ===== Buttons ===== */
 .btn{display:inline-block; border:3px solid currentColor; padding:8px 12px; text-decoration:none; font-weight:900; background:#000; margin-right:10px; margin-top:6px}
 .btn.flight{color:#f00}.btn.hotel{color:#0f0}.btn.talk{color:#ff0}
+.btn.whatsapp{color:#0f0;border-color:#0f0}
+.btn.email{color:#0ff;border-color:#0ff}
 
 /* ===== About blocks ===== */
 .info-block{margin:10px 0; padding:8px 10px; border:3px solid #0ff}
 .info-block .label{color:#0ff; font-weight:900; margin-bottom:4px}
 .info-block .value{color:#fff; word-break:break-word}
 
-/* ===== Request simplified ===== */
+/* ===== Request simplified + voice note ===== */
 .request-wrap .bigbox{
   width:100%; min-height:140px; font-size:1.1rem; padding:10px;
   border:3px solid #0f0; background:#000; color:#fff; font-family:system-ui,-apple-system,Arial,sans-serif;
 }
 .request-actions{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
-.btn.whatsapp{color:#0f0; border-color:#0f0}
-.btn.email{color:#0ff; border-color:#0ff}
-.request-email{margin-top:10px; display:none}
-.request-email input{
-  width:100%; padding:10px; border:3px solid #0ff; background:#000; color:#fff;
-  font-family:system-ui,-apple-system,Arial,sans-serif;
-}
+.voice-wrap{margin-top:10px; border:3px dashed #0ff; padding:10px}
+.voice-status{margin-top:6px; color:#0ff; font-size:0.95rem}
+.voice-actions{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
 
-/* ===== Banner + bottom links (bigger) ===== */
+/* ===== Banner + bottom links (larger) ===== */
 .kay-banner{border-top:4px solid #f00; border-bottom:4px solid #f00; text-align:center; padding:8px 10px; margin:8px 0 10px}
 .kay-banner a{color:#ff0; text-decoration:none; font-weight:900; line-height:1.25; font-size:1.25rem}
 .bottom-links{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:0}
