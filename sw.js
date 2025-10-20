@@ -1,4 +1,20 @@
-const CACHE='whefax-master-v1'; const ASSETS=['./','./index.html','./details.html','./admin.html','./styles.css','./user.js','./details.js','./admin.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/appicon-1024.png','./assets/apple-touch-icon.png','./assets/favicon-32.png','./assets/favicon-16.png','./assets/header-whefax.png','./data/deals.json'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==CACHE&&caches.delete(k))))).then(()=>self.clients.claim()));
-self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const copy=resp.clone(); caches.open(CACHE).then(c=>c.put(e.request,copy)); return resp;}))));
+const CACHE = 'whefax-master-v8-3';
+self.addEventListener('install', e => { self.skipWaiting(); });
+self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
+self.addEventListener('fetch', (event) => {
+  const u = new URL(event.request.url);
+  if (u.pathname.endsWith('/data/deals.json') || u.pathname.endsWith('/data/blog.json')) { return; }
+  event.respondWith(caches.open(CACHE).then(async cache => {
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
+    try {
+      const res = await fetch(event.request);
+      if (res && res.ok && event.request.method === 'GET' && res.type !== 'opaque') {
+        cache.put(event.request, res.clone());
+      }
+      return res;
+    } catch (e) {
+      return cached || Response.error();
+    }
+  }));
+});

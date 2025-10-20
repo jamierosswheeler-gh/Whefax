@@ -1,50 +1,33 @@
-
-async function loadAll(){try{const r=await fetch('data/deals.json',{cache:'no-store'});return await r.json();}catch(e){return {deals:[]};}}
-const wrap=document.getElementById('wrap'), q=document.getElementById('q'), tagWrap=document.getElementById('tagFilter'); let deals=[], activeTags=new Set();
-function renderList(filter=''){ if(!wrap) return; wrap.innerHTML=''; const f=(filter||'').toLowerCase(); let list=(deals||[]).filter(d=>JSON.stringify(d).toLowerCase().includes(f));
-  if(activeTags.size){list=list.filter(d=>(d.tags||[]).some(t=>activeTags.has(t)));}
-  list.forEach(d=>{const tpl=document.getElementById('dealCard').content.cloneNode(true); tpl.querySelector('.title').textContent=d.title||'Deal';
-    tpl.querySelector('.meta').textContent=[d.origin,'→',d.destination,d.dates].filter(Boolean).join('  '); tpl.querySelector('.price').textContent=d.price||'';
-    const img=tpl.querySelector('.img'); if(d.image){img.src=d.image;} else {img.remove();} const card=tpl.children[0];
-    card.addEventListener('click',()=>{const url=new URL('details.html',location.href); url.searchParams.set('id', d.id||''+Math.random()); sessionStorage.setItem('whefax.detail', JSON.stringify(d)); location.href=url.toString();});
-    wrap.appendChild(tpl);});}
-function buildTags(){ if(!tagWrap) return; tagWrap.innerHTML=''; const set=new Set(); (deals||[]).forEach(d=>(d.tags||[]).forEach(t=>set.add(t)));
-  Array.from(set).sort().forEach(t=>{const s=document.createElement('span'); s.textContent=t; s.className='tag'; s.tabIndex=0; s.role='button';
-    const toggle=()=>{ if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); s.classList.toggle('selected'); renderList(q?q.value:'');};
-    s.addEventListener('click',toggle); s.addEventListener('touchstart',(e)=>{e.preventDefault();toggle();},{passive:false}); s.addEventListener('keydown',(e)=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle();}});
-    tagWrap.appendChild(s);});}
-document.addEventListener('DOMContentLoaded',()=>{loadAll().then(j=>{deals=j.deals||[]; buildTags(); renderList();}); if(q){ q.addEventListener('input',e=>renderList(e.target.value)); }});
-// Tabs
-document.addEventListener('DOMContentLoaded', function(){ const keys=[...document.querySelectorAll('.tabkey')];
-  const panes={deals:document.getElementById('tab-deals'),finder:document.getElementById('tab-finder'),request:document.getElementById('tab-request'),about:document.getElementById('tab-about')};
-  function show(name){ Object.values(panes).forEach(p=>p&&p.classList.remove('active')); keys.forEach(k=>{k.classList.remove('active'); k.setAttribute('aria-selected','false');});
-    if(panes[name]) panes[name].classList.add('active'); const key=keys.find(k=>k.dataset.tab===name); if(key){key.classList.add('active'); key.setAttribute('aria-selected','true');} localStorage.setItem('whefax.tab', name); }
-  const bind=(k)=>{ const go=()=>show(k.dataset.tab); k.addEventListener('click', go); k.addEventListener('touchstart',(e)=>{e.preventDefault();go();},{passive:false}); k.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}}); };
-  keys.forEach(bind); show(localStorage.getItem('whefax.tab')||'deals');});
-// Finder -> WhatsApp
-(function(){ const btn=document.getElementById('finderSend'); if(!btn) return; const v=id=>{const el=document.getElementById(id); return el?el.value.trim():'';};
-  btn.addEventListener('click', ()=>{ const phone=(localStorage.getItem('whefax.whats')||'').replace(/[^\d]/g,''); if(!phone) return alert('WhatsApp number not set. Admin → Settings.');
-    const parts=[
-      'NEW HOLIDAY REQUEST',
-      '',
-      v('f_contact')&&('Contact: '+v('f_contact')),
-      v('f_where')&&('Where: '+v('f_where')),
-      v('f_airport')&&('Departure airport: '+v('f_airport')),
-      v('f_length')&&('How long: '+v('f_length')),
-      v('f_when')&&('When: '+v('f_when')),
-      v('f_who')&&('Who: '+v('f_who')),
-      v('f_budget')&&('Budget: '+v('f_budget')),
-      v('f_board')&&('Board: '+v('f_board')),
-      v('f_travel')&&('Max travel time: '+v('f_travel')),
-      v('f_other')&&'Other info:',
-      v('f_other')&&v('f_other')
-    ].filter(Boolean);
-    const body = parts.join('\n');
-    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(body),'_blank'); }); })();
-// Request -> WhatsApp
-(function(){ const btn=document.getElementById('reqSend'); if(!btn) return;
-  btn.addEventListener('click', ()=>{ const phone=(localStorage.getItem('whefax.whats')||'').replace(/[^\d]/g,''); if(!phone) return alert('WhatsApp number not set. Admin → Settings.');
-    const msg=(document.getElementById('r_msg')?.value||'').trim(); const contact=(document.getElementById('r_contact')?.value||'').trim();
-    const parts=['General request:', msg||'(no message)', contact?('CONTACT: '+contact):'']; window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(parts.filter(Boolean).join('\\n')),'_blank');}); })();
-// About
-(function(){ const s=localStorage.getItem('whefax.site')||''; const w=localStorage.getItem('whefax.whats')||''; const a=document.getElementById('about_site'); const b=document.getElementById('about_whats'); if(a) a.textContent=s||'(set in Admin → Settings)'; if(b) b.textContent=w||'(set in Admin → Settings)'; })();
+if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js?v=8.3'); } catch(e) {} }
+function setTab(tab){ ['deals','request','blog','about'].forEach(id=>{ var el=document.getElementById('tab-'+id); if(!el)return; el.style.display=(id===tab?'block':'none'); }); try{ localStorage.setItem('whefax.tab', tab); }catch(_){} }
+document.addEventListener('DOMContentLoaded', function(){
+  var tab=(location.hash.replace('#','')||'').toLowerCase(); if(!tab) try{ tab=localStorage.getItem('whefax.tab')||'deals'; }catch(_){ tab='deals'; }
+  if(['deals','request','blog','about'].indexOf(tab)<0) tab='deals'; setTab(tab);
+  var form=document.getElementById('finder_form'); if(form){ form.addEventListener('submit', function(e){ e.preventDefault();
+    var where=rq_where.value,len=rq_length.value,when=rq_when.value,who=rq_who.value,bud=rq_budget.value,other=rq_other.value,contact=rq_contact.value;
+    var msg=["I'm interested in a custom holiday:", where?('WHERE: '+where):'', len?('HOW LONG: '+len):'', when?('WHEN: '+when):'', who?('WHO: '+who):'', bud?('BUDGET: '+bud):'', other?('OTHER: '+other):'', contact?('CONTACT: '+contact):''].filter(Boolean).join('%0A');
+    var phone=(localStorage.getItem('whatsapp.number')||'+447824338196');
+    location.href='https://wa.me/'+encodeURIComponent(phone)+'?text='+msg;
+  });}
+  loadDeals(); loadBlog();
+});
+async function loadDeals(){ const wrap=document.getElementById('deal_list'); try{ const r=await fetch('data/deals.json?v='+Date.now(), {cache:'no-store'}); const j=await r.json();
+  if(!j.deals||!j.deals.length){ wrap.innerHTML='<p>No deals yet.</p>'; return; }
+  wrap.innerHTML=j.deals.map(d => ('<div class="deal">'+
+    '<div class="dtitle">'+(d.title||'Untitled')+'</div>'+
+    (d.price?'<div>'+d.price+'</div>':'')+
+    (d.destination?'<div>Destination: '+d.destination+'</div>':'')+
+    (d.dates?'<div>Dates: '+d.dates+'</div>':'')+
+    '<div class="tags">'+(d.tags?d.tags.map(t => '<span class="tag"><span class="dot"></span>'+t+'</span>').join(''):'')+'</div>'+
+    '<div style="margin-top:8px"><a href="details.html?id='+(encodeURIComponent(d.id||''))+'">View details</a></div>'+
+  '</div>')).join('');
+}catch(e){ if(wrap) wrap.innerHTML='<p class="notice">Failed to load deals.</p>'; } }
+setInterval(function(){ try{ loadDeals(); }catch(e){} }, 30000);
+async function loadBlog(){ try{ const r=await fetch('data/blog.json?v='+Date.now(), {cache:'no-store'}); const j=await r.json(); const wrap=document.getElementById('blog_list'); if(!wrap) return;
+  if(!j.posts||!j.posts.length){ wrap.innerHTML='<p>No posts yet.</p>'; return; }
+  wrap.innerHTML=j.posts.map(p => ('<div class="post">'+
+    '<div class="ptitle">'+(p.title||'Untitled')+'</div>'+
+    (p.excerpt?'<div class="pexcerpt">'+p.excerpt+'</div>':'')+
+    (p.url?'<div class="purl"><a target="_blank" rel="noopener nofollow" href="'+p.url+'">Read more</a></div>':'')+
+  '</div>')).join('');
+}catch(e){ const wrap=document.getElementById('blog_list'); if(wrap) wrap.innerHTML='<p class="notice">Failed to load blog.</p>'; } }

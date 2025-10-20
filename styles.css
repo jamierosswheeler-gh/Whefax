@@ -1,34 +1,34 @@
-
-:root{--bg:#000;--fg:#fff;--blue:#00f;--red:#f00;--green:#0f0;--yellow:#ff0;--cyan:#0ff;--magenta:#f0f;
-font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--fg)}
-header.hero{background:#000;border-bottom:4px solid var(--blue)} header.hero img{width:100%;height:auto;display:block}
-.bar.bottom{display:flex;justify-content:center;padding:8px 12px;border-top:4px solid var(--red);background:#000}
-.container{max-width:980px;margin:0 auto;padding:12px}
-.title{color:var(--yellow);border-left:12px solid var(--yellow);padding-left:10px;margin:12px 0}
-.card{border:3px solid var(--cyan);padding:12px;background:#000;margin:10px 0}
-.grid{display:grid;gap:12px}.grid.deals{grid-template-columns:1fr}@media(min-width:720px){.grid.deals{grid-template-columns:1fr 1fr}}
-.input, textarea{width:100%;padding:10px;background:#000;border:3px solid var(--blue);color:var(--fg)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-.tag{border:2px solid var(--magenta);color:var(--magenta);padding:6px 10px;user-select:none}
-.tag.selected{background:var(--magenta);color:#000;box-shadow:0 0 0 2px #000 inset}
-.deal{display:flex;gap:10px;justify-content:space-between;border:3px solid var(--cyan);background:#000;padding:10px}
-.deal .left{flex:1;min-width:0}.deal .title{color:var(--yellow);font-weight:900}.deal .meta{color:var(--cyan);margin:6px 0}.deal .price{color:var(--red);font-weight:900;font-size:1.2rem;text-align:right}
-.deal img{width:120px;height:90px;object-fit:cover;border:2px solid var(--magenta)}
-.kv{display:grid;grid-template-columns:160px 1fr;gap:6px;align-items:center}
-.btn{display:inline-block;border:3px solid var(--green);color:var(--green);padding:10px 12px;text-decoration:none;font-weight:800;background:#000}
-.btn.blue{border-color:#00f;color:#00f}.btn.red{border-color:#f00;color:#f00}
-.notice{opacity:.8}
-.tabs-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
-button.tabkey{background:#000;border:3px solid #333;border-radius:0;appearance:none;-webkit-appearance:none;font-weight:900;padding:8px 6px;cursor:pointer}
-button.tabkey.red{border-color:#f00;color:#f00}button.tabkey.green{border-color:#0f0;color:#0f0}
-button.tabkey.yellow{border-color:#ff0;color:#ff0}button.tabkey.blue{border-color:#00f;color:#00f}
-button.tabkey.active,button.tabkey:focus{outline:4px solid #222}
-.tabpane{display:none}.tabpane.active{display:block}
-
-.btn.yellow{border-color:#ff0;color:#ff0}
-
-.btnrow{display:flex;flex-wrap:wrap;gap:8px}
-.btn.flight{border-color:#f00;color:#f00}
-.btn.hotel{border-color:#0f0;color:#0f0}
-.btn.talk{border-color:#ff0;color:#ff0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#000;color:#fff;font-family:monospace}
+a{color:#0ff}
+.hero img{width:100%;display:block}
+.ticker-bar.top{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;background:#000;padding:4px 10px;font-weight:700}
+.ticker-bar.top .left{color:#0ff}
+.ticker-bar.top .right{color:#0ff;font-variant-numeric:tabular-nums;font-size:0.95rem}
+header.hero{border-bottom:4px solid #00f}
+.topnav{position:sticky;top:48px;z-index:49;display:flex;gap:10px;justify-content:center;background:#000;padding:6px 8px}
+.toptab{border:3px solid currentColor;padding:6px 10px;text-decoration:none;font-weight:900;background:#000}
+.toptab.red{color:#f00}.toptab.green{color:#0f0}.toptab.yellow{color:#ff0}.toptab.blue{color:#00f}
+main{padding:10px}
+.card{border:4px solid #00f;padding:10px;margin:10px 0;background:#000}
+.title{color:#ff0;font-weight:900}
+.deal{border:3px solid #0f0;padding:8px 10px;margin:10px 0}
+.deal .dtitle{color:#ff0;font-weight:900}
+.tags{margin-top:6px}
+.tag{display:inline-block;border:2px solid #a0f;padding:4px 8px;font-size:0.9rem;margin:6px 8px 0 0;color:#fff}
+.tag .dot{display:inline-block;width:10px;height:10px;background:#a0f;margin-right:6px}
+.btn{display:inline-block;border:3px solid currentColor;padding:8px 12px;text-decoration:none;font-weight:900;background:#000;margin-right:10px;margin-top:6px}
+.btn.flight{color:#f00}.btn.hotel{color:#0f0}.btn.talk{color:#ff0}
+.bar.bottom{border-top:none}
+.kay-banner{border-top:4px solid #f00;border-bottom:4px solid #f00;text-align:center;padding:8px 10px;margin:8px 0 10px}
+.kay-banner a{color:#ff0;text-decoration:none;font-weight:900;line-height:1.25}
+.bottom-links{display:flex;justify-content:center;gap:16px;margin:12px 0 6px}
+.bottom-links .navlink{font-weight:900;text-decoration:none;border:none !important;box-shadow:none !important;background:none !important}
+.bottom-links .red{color:#f00}.bottom-links .green{color:#0f0}.bottom-links .yellow{color:#ff0}.bottom-links .blue{color:#00f}
+.info-block{margin:10px 0;padding:8px 10px;border:3px solid #0ff}
+.info-block .label{color:#0ff;font-weight:900;margin-bottom:4px}
+.info-block .value{color:#fff;word-break:break-word}
+#blog_list .post{border:3px solid #00f;padding:8px 10px;margin:8px 0}
+#blog_list .ptitle{color:#ff0;font-weight:900;margin-bottom:4px}
+#blog_list .pexcerpt{color:#fff;margin-bottom:4px}
+#blog_list .purl a{color:#0ff;text-decoration:none}
