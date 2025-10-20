@@ -1,9 +1,14 @@
-const CACHE = 'whefax-master-v8-3';
+const CACHE = 'whefax-master-v8-4';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
+
 self.addEventListener('fetch', (event) => {
   const u = new URL(event.request.url);
-  if (u.pathname.endsWith('/data/deals.json') || u.pathname.endsWith('/data/blog.json')) { return; }
+  // Always network for live JSON (deals + blog)
+  if (u.pathname.endsWith('/data/deals.json') || u.pathname.endsWith('/data/blog.json')) {
+    return;
+  }
+  // Cache-first for everything else
   event.respondWith(caches.open(CACHE).then(async cache => {
     const cached = await cache.match(event.request);
     if (cached) return cached;
