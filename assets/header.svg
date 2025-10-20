@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300">
+  <rect width="1200" height="300" fill="#000"/>
+  <rect x="0" y="36" width="1200" height="184" fill="#00f"/>
+  <text x="24" y="150" font-family="monospace" font-size="100" font-weight="700" fill="#ff0">WHEFAX</text>
+  <text x="550" y="150" font-family="monospace" font-size="52" font-weight="700" fill="#0ff">HOLIDAYS</text>
+  <rect x="0" y="220" width="1200" height="32" fill="#0ff"/>
+  <rect x="0" y="252" width="1200" height="24" fill="#ff0"/>
+  <!-- simple palm on the right -->
+  <polygon points="1100,120 1118,118 1122,220 1106,220" fill="#f00"/>
+  <polygon points="1054,110 1108,135 1088,150" fill="#0f0"/>
+  <polygon points="1100,98 1108,135 1120,150" fill="#0f0"/>
+  <polygon points="1130,112 1108,135 1140,150" fill="#0f0"/>
+  <polygon points="1090,126 1108,135 1114,150" fill="#0f0"/>
+  <polygon points="1112,120 1108,135 1134,150" fill="#0f0"/>
+</svg>
