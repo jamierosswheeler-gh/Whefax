@@ -1,7 +1,11 @@
-// Shared GitHub settings
+// ---- GitHub settings helpers ----
 function getGh(){ return { repo:(localStorage.getItem('gh.repo')||'').trim(), token:(localStorage.getItem('gh.token')||'').trim() }; }
-function setGh(repo, token){ if(typeof repo==='string') localStorage.setItem('gh.repo', repo.trim()); if(typeof token==='string' && token.trim()) localStorage.setItem('gh.token', token.trim()); }
+function setGh(repo, token){
+  if(typeof repo==='string') localStorage.setItem('gh.repo', repo.trim());
+  if(typeof token==='string' && token.trim()) localStorage.setItem('gh.token', token.trim());
+}
 
+// Prefill + save settings
 document.addEventListener('DOMContentLoaded', function(){
   var repoEl=document.getElementById('gh_repo'), tokenEl=document.getElementById('gh_token'), msgEl=document.getElementById('gh_msg');
   var togEl=document.getElementById('gh_toggle'), saveEl=document.getElementById('gh_save');
@@ -10,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(saveEl){ saveEl.addEventListener('click', function(){ try{ setGh(repoEl.value||'', tokenEl.value||''); if(msgEl) msgEl.textContent='Saved ✓'; setTimeout(function(){ if(msgEl) msgEl.textContent=''; },2000);}catch(e){ if(msgEl) msgEl.textContent='Failed: '+e.message; } }); }
 });
 
-// Robust GitHub updater with 409 retry
+// Robust updater (handles 409 by re-reading)
 async function ghUpdateJson(path, mutateFn, statusEl){
   const { repo, token } = getGh();
   if (!repo || !token) throw new Error('GitHub repo/token missing');
@@ -18,7 +22,7 @@ async function ghUpdateJson(path, mutateFn, statusEl){
 
   async function readLatest(){
     const r = await fetch(base, { headers:{ 'Authorization':'token '+token, 'Accept':'application/vnd.github+json' }});
-    if (r.status === 404) return { json: null, sha: null }; // new file
+    if (r.status === 404) return { json: null, sha: null };
     if (!r.ok) throw new Error('Read failed: '+r.status);
     const meta = await r.json();
     const decoded = decodeURIComponent(escape(atob((meta.content||'').replace(/\n/g,''))));
@@ -48,7 +52,7 @@ async function ghUpdateJson(path, mutateFn, statusEl){
   if (!resp.ok) throw new Error('Update failed: '+resp.status);
 }
 
-// Deals form (with tags)
+// ---- Add Deal form ----
 document.addEventListener('DOMContentLoaded', function(){
   var form=document.getElementById('deal_form'); if(!form) return;
   form.addEventListener('submit', async function(e){
@@ -73,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function(){
           flight_link, hotel_link,
           flight_info: '', hotel_info: '',
           board: '', transfers: '', other,
+          hot: 0,
           tags: (tags && tags.length? tags : (destination? [destination] : []))
         });
         return j;
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// Show existing tags to reuse
+// ---- Existing tags helper ----
 document.addEventListener('DOMContentLoaded', async function(){
   var exist = document.getElementById('existing_tags_wrap');
   if(!exist) return;
@@ -101,54 +106,41 @@ document.addEventListener('DOMContentLoaded', async function(){
   }
 });
 
-// Blog form
-document.addEventListener('DOMContentLoaded', function(){
-  var form = document.getElementById('blog_form'); if(!form) return;
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var title = document.getElementById('b_title').value.trim();
-    var url = document.getElementById('b_url').value.trim();
-    var excerpt = document.getElementById('b_excerpt').value.trim();
-    var status = document.getElementById('blog_status');
-    if(!title){ status.textContent='Please add a title'; return; }
-    try{
-      await ghUpdateJson('data/blog.json', (current) => {
-        const j = current || { posts: [] };
-        j.posts = j.posts || [];
-        j.posts.unshift({ title, url, excerpt, date: new Date().toISOString() });
-        return j;
-      }, status);
-      status.textContent='Blog post added ✓';
-    }catch(err){
-      status.textContent='Error: '+err.message;
-    }
-  });
-});
-
-// Admin: list deals + reset hotness
+// ---- Admin: list current deals + reset hotness ----
 document.addEventListener('DOMContentLoaded', async function(){
-  var wrap=document.getElementById('deal_admin_list'); if(!wrap)return;
+  var wrap = document.getElementById('deal_admin_list'); if(!wrap) return;
   try{
-    const r=await fetch('data/deals.json?v='+Date.now(),{cache:'no-store'});
-    const j=await r.json(); const deals=j.deals||[];
-    wrap.innerHTML=deals.map(d=>`
-      <div class="deal" style="border-color:#ff0">
-        <div class="dtitle">${d.title||'Untitled'}</div>
-        <div>Hotness: ${Number(d.hot||0)}</div>
-        <button class="btn" data-reset="${d.id||''}" style="color:#ff0;border-color:#ff0">Reset hotness</button>
-      </div>`).join('');
-    wrap.onclick=async e=>{
-      var btn=e.target.closest('button[data-reset]'); if(!btn)return;
-      var id=btn.dataset.reset; btn.disabled=true; btn.textContent='Resetting…';
+    const r = await fetch('data/deals.json?v='+Date.now(), {cache:'no-store'});
+    const j = await r.json(); const deals = (j.deals||[]);
+    wrap.innerHTML = deals.map(d => (
+      '<div class="deal" style="border-color:#ff0">'+
+        '<div class="dtitle">'+(d.title||'Untitled')+'</div>'+
+        '<div>Hotness: '+(Number(d.hot||0))+'°</div>'+
+        '<button class="btn" data-reset="'+(d.id||'')+'" style="color:#ff0;border-color:#ff0">Reset hotness</button>'+
+      '</div>'
+    )).join('');
+
+    wrap.onclick = async function(e){
+      var btn = e.target.closest('button[data-reset]'); if(!btn) return;
+      var id = btn.getAttribute('data-reset');
+      btn.disabled = true; btn.textContent = 'Resetting…';
       try{
-        await ghUpdateJson('data/deals.json',cur=>{
-          const j2=cur||{deals:[]};
-          j2.deals=(j2.deals||[]).map(d=>{if(String(d.id)===String(id))d.hot=0;return d;});
+        await ghUpdateJson('data/deals.json', (current)=>{
+          const j2 = current || {deals:[]};
+          j2.deals = (j2.deals||[]).map(d => {
+            if(String(d.id||'')===String(id)){ d.hot = 0; }
+            return d;
+          });
           return j2;
         });
-        btn.textContent='Reset ✓';
-      }catch(err){btn.textContent='Error';}
-      setTimeout(()=>{btn.disabled=false;btn.textContent='Reset hotness';},1500);
+        btn.textContent = 'Reset ✓';
+      }catch(err){
+        btn.textContent = 'Error';
+      }finally{
+        setTimeout(()=>{ btn.disabled=false; btn.textContent='Reset hotness'; }, 1500);
+      }
     };
-  }catch(e){wrap.textContent='Could not load deals.';}
+  }catch(e){
+    wrap.textContent = 'Could not load deals.';
+  }
 });
