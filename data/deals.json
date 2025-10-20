@@ -1,51 +1,20 @@
 {
-  "updated": "2025-10-20",
   "deals": [
     {
-      "id": 1760942406097,
-      "title": "Getaway",
-      "price": "",
-      "dates": "",
-      "origin": "",
-      "destination": "",
-      "image": "",
-      "flightLink": "Hh",
-      "hotelLink": "Hh",
-      "links": [
-        "Hh"
-      ],
-      "flights": "",
-      "hotel": "",
-      "board": "",
-      "transfers": "",
-      "other": "",
-      "summary": "",
+      "id": "demo1",
+      "title": "3 nights Paris from \u00a3199",
+      "destination": "Paris",
+      "dates": "12\u201315 Oct",
+      "price": "\u00a3199pp",
+      "flight_link": "",
+      "hotel_link": "",
+      "flight_info": "From London, 2hr flight",
+      "hotel_info": "3\u2605 city hotel",
+      "board": "Room only",
+      "transfers": "Metro",
+      "other": "Example deal",
       "tags": [
-        "Beach"
-      ]
-    },
-    {
-      "id": 1760916831647,
-      "title": "Getaway",
-      "price": "",
-      "dates": "",
-      "origin": "",
-      "destination": "",
-      "image": "",
-      "flightLink": "Ndjd",
-      "hotelLink": "Ndhjd",
-      "links": [
-        "Ndjd",
-        "Ndhjd"
-      ],
-      "flights": "",
-      "hotel": "",
-      "board": "",
-      "transfers": "",
-      "other": "",
-      "summary": "",
-      "tags": [
-        "Family"
+        "Paris"
       ]
     }
   ]
