@@ -1,19 +1,53 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WHEFAX Deal</title>
-<link rel="manifest" href="manifest.webmanifest?v=6?v=5?v=4"><meta name="theme-color" content="#000000">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=6">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=6">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=6">
-<link rel="stylesheet" href="styles.css?v=6?v=5?v=4"></head>
+<link rel="manifest" href="manifest.webmanifest?v=8?v=7?v=6?v=5?v=4"><meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=8?v=7?v=6">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=8?v=7?v=6">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=8?v=7?v=6">
+<link rel="stylesheet" href="styles.css?v=8?v=7?v=6?v=5?v=4"></head>
 <body>
+
+
+
+
+
 
 <div class="ticker-bar top">
   <div class="left">WHEFAX 101</div>
-  <div class="right ticker-time">00:00:00 — 0000-00-00</div>
+  <div class="right ticker-time">Mon 01st Jan 00:00:00</div>
 </div>
-<script>(function(){function tick(){var el=document.querySelector('.ticker-time'); if(!el) return; var n=new Date(); var hh=('0'+n.getHours()).slice(-2); var mm=('0'+n.getMinutes()).slice(-2); var ss=('0'+n.getSeconds()).slice(-2); var yyyy=n.getFullYear(); var mo=('0'+(n.getMonth()+1)).slice(-2); var dd=('0'+n.getDate()).slice(-2); el.textContent=hh+':'+mm+':'+ss+' — '+yyyy+'-'+mo+'-'+dd;} setInterval(tick,1000); setTimeout(tick,50);} )();</script>
-<header class="hero"><img src="assets/header-whefax-v5.png?v=5" alt="WHEFAX HOLIDAYS"></header>
+<script>(function(){
+  function ordinal(n){var s=["th","st","nd","rd"], v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+  var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function tick(){
+    var el=document.querySelector('.ticker-time'); if(!el) return;
+    var d=new Date(); var day=days[d.getDay()]; var dd=ordinal(d.getDate()); var mo=months[d.getMonth()];
+    var hh=('0'+d.getHours()).slice(-2), mm=('0'+d.getMinutes()).slice(-2), ss=('0'+d.getSeconds()).slice(-2);
+    el.textContent = day + ' ' + dd + ' ' + mo + ' ' + hh + ':' + mm + ':' + ss;
+  }
+  setInterval(tick,1000); setTimeout(tick,50);
+})();</script>
+
+
+<div class="topnav" role="navigation" aria-label="Top navigation">
+  <a href="index.html" class="toptab red" data-gotab="deals">DEALS</a>
+  <a href="index.html#finder" class="toptab green" data-gotab="finder">FINDER</a>
+  <a href="index.html#request" class="toptab yellow" data-gotab="request">REQUEST</a>
+  <a href="index.html#about" class="toptab blue" data-gotab="about">ABOUT</a>
+</div>
+<script>(function(){
+  // route tab link clicks from any page back to index and set the active tab
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a.toptab[data-gotab]'); if(!a) return;
+    e.preventDefault();
+    try { localStorage.setItem('whefax.tab', a.getAttribute('data-gotab')); } catch(ex) {}
+    window.location.href = 'index.html';
+  });
+})();</script>
+
+<header class="hero"><img src="assets/header-whefax-v7.png?v=7" alt="WHEFAX HOLIDAYS"></header>
 <div class="container">
   <h1 class="title" id="title">Deal</h1>
   <div class="grid deals"><div class="card"><div class="title">✈️ Flights</div><div id="flights"></div></div>
@@ -33,18 +67,14 @@
 </div>
 <footer class="bar bottom"></footer>
 
-<div class="bottom-links">
-  <a href="index.html" class="navlink red">DEALS</a>
-  <span class="sep">•</span>
-  <a href="index.html#finder" class="navlink green" data-gotab="finder">FINDER</a>
-  <span class="sep">•</span>
-  <a href="index.html#request" class="navlink yellow" data-gotab="request">REQUEST</a>
-  <span class="sep">•</span>
-  <a href="index.html#about" class="navlink blue" data-gotab="about">ABOUT</a>
-</div>
-<script>(function(){document.addEventListener('click',function(e){var a=e.target.closest('a[data-gotab]'); if(!a) return; e.preventDefault(); try{localStorage.setItem('whefax.tab', a.getAttribute('data-gotab'));}catch(ex){} window.location.href='index.html';});})();</script>
+
+
+
+
+
 <div class="kay-banner">
-  <a href="https://www.youtube.com/results?search_query=peter+kay+teletext+holidays+short" target="_blank" rel="noopener">WEEFAX HOLIDAYS - BOOK IT. PACK IT. F##K OFF.</a>
+  <a href="https://youtu.be/xfXg5BGXw-w?si=LDGyP963HvJO3dQd" target="_blank" rel="noopener">WHEFAX HOLIDAYS<br>BOOK IT. PACK IT. F##K OFF.</a>
 </div>
 
-<script src="details.js?v=6?v=5?v=4"></script></body></html>
+
+<script src="details.js?v=8?v=7?v=6?v=5?v=4"></script></body></html>

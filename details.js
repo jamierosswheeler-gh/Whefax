@@ -15,12 +15,12 @@ async function init(){
   h(document.getElementById('other'), (d.other||'').replace(/\n/g,'<br>'));
   // Links
   const links=document.getElementById('links');
-  if(d.flightLink){const a=document.createElement('a'); a.href=d.flightLink; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='Book Flights'; a.className='flight'; links.appendChild(a);}
-  if(d.hotelLink){const a=document.createElement('a'); a.href=d.hotelLink; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='Book Hotel'; a.className='hotel'; links.appendChild(a);}
-  (d.links||[]).forEach((u,i)=>{ if(u===d.flightLink||u===d.hotelLink) return; const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='More Link '+(i+1); a.className='more'; links.appendChild(a);});
+  if(d.flightLink){const a=document.createElement('a'); a.href=d.flightLink; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='Book Flights'; a.className='btn flight'; links.appendChild(a);}
+  if(d.hotelLink){const a=document.createElement('a'); a.href=d.hotelLink; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='Book Hotel'; a.className='btn hotel'; links.appendChild(a);}
+  (d.links||[]).forEach((u,i)=>{ if(u===d.flightLink||u===d.hotelLink) return; const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='nofollow noopener sponsored'; a.textContent='More Link '+(i+1); a.className='btn blue'; links.appendChild(a);});
   // WhatsApp talk
   const whats=document.getElementById('whats'); const base=(localStorage.getItem('whefax.site')||'').replace(/\/+$/,''); const share = base? (base+'/details.html?id='+encodeURIComponent(d.id)): location.href; const phone=(localStorage.getItem('whefax.whats')||'').replace(/[^\d]/g,'');
   const msg = "I'm interested in this deal: "+(d.title||'Deal')+" — "+share;
-  if(phone){ const a=document.createElement('a'); a.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg); a.className='talk'; a.textContent="I'm interested — let's talk"; whats.appendChild(a);} else { whats.innerHTML='<span class="notice">WhatsApp number not set.</span>'; }
+  if(phone){ const a=document.createElement('a'); a.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg); a.className='btn talk'; a.textContent="I'm interested — let's talk"; whats.appendChild(a);} else { whats.innerHTML='<span class="notice">WhatsApp number not set.</span>'; }
 }
 init();
