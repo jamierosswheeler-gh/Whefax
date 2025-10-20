@@ -1,4 +1,4 @@
-const CACHE = 'whefax-master-v8-4';
+const CACHE = 'whefax-master-v8-4-2';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
 
