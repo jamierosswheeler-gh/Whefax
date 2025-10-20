@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="manifest" href="manifest.webmanifest?v=8.4.2">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=8.4.2">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=8.4.2">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=8.4.2">
-<link rel="stylesheet" href="styles.css?v=8.4.2">
+<link rel="manifest" href="manifest.webmanifest?v=8.6">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=8.6">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=8.6">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=8.6">
+<link rel="stylesheet" href="styles.css?v=8.6">
 <title>WHEFAX</title>
-<script src="user.js?v=8.4.2" defer></script>
+<script src="user.js?v=8.6" defer></script>
 </head>
 <body>
 
-<!-- ✅ Top ticker -->
+<!-- Top ticker -->
 <div class="ticker-bar top">
-  <div class="left">WHEFAX 101</div>
+  <div class="left">WHEFAX HOLIDAYS</div>
   <div class="right ticker-time">Mon 01st Jan 00:00:00</div>
 </div>
 <script>
@@ -32,74 +32,63 @@
 })();
 </script>
 
-<!-- ✅ Header -->
+<!-- Header -->
 <header class="hero hero--ratio-5x1">
-  <img src="assets/header.svg?v=8.4.3" alt="WHEFAX header">
+  <img src="assets/header.svg?v=8.6" alt="WHEFAX header">
 </header>
 
+<!-- Top nav (sticky, full width buttons) -->
+<nav class="topnav" role="navigation" aria-label="Top navigation">
+  <a href="#deals"   class="toptab red"   data-gotab="deals">DEALS</a>
+  <a href="#request" class="toptab green" data-gotab="request">REQUEST</a>
+  <a href="#blog"    class="toptab yellow"data-gotab="blog">BLOG</a>
+  <a href="#about"   class="toptab blue"  data-gotab="about">ABOUT</a>
+</nav>
 
-<!-- ✅ Top nav (below header) -->
-<div class="topnav" role="navigation" aria-label="Top navigation">
-  <a href="index.html" class="toptab red" data-gotab="deals">DEALS</a>
-  <a href="index.html#request" class="toptab green" data-gotab="request">REQUEST</a>
-  <a href="index.html#blog" class="toptab yellow" data-gotab="blog">BLOG</a>
-  <a href="index.html#about" class="toptab blue" data-gotab="about">ABOUT</a>
-</div>
-<script>
-document.addEventListener('click',function(e){
-  var a=e.target.closest('a.toptab[data-gotab]');
-  if(!a)return;
-  e.preventDefault();
-  localStorage.setItem('whefax.tab',a.getAttribute('data-gotab'));
-  window.location.href='index.html';
-});
-</script>
-
-<!-- ✅ Main tabs -->
+<!-- Main tabs -->
 <main>
   <!-- Deals -->
-  <div id="tab-deals" class="tabpane">
+  <section id="tab-deals" class="tabpane">
     <div class="card">
       <h2 class="title" style="margin-top:0">latest deals</h2>
       <div class="filters" id="deal_filters"></div>
       <div id="deal_list">Loading deals…</div>
     </div>
-  </div>
+  </section>
 
   <!-- Request -->
-<div id="tab-request" class="tabpane" style="display:none">
-  <div class="card request-wrap">
-    <h2 class="title">your personal holiday finder</h2>
-    <p>Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
+  <section id="tab-request" class="tabpane" style="display:none">
+    <div class="card request-wrap">
+      <h2 class="title">your personal holiday finder</h2>
+      <p>Just fill in as much info as you want to. We won’t call unless you’d prefer to talk on the phone.</p>
 
-    <label for="rq_free">What I want</label>
-    <textarea id="rq_free" class="bigbox" placeholder="e.g., 1 week in Tenerife in March, 2 adults, £1200 budget, pool, near beach..."></textarea>
+      <label for="rq_free">What I want</label>
+      <textarea id="rq_free" class="bigbox" placeholder="e.g., 1 week in Tenerife in March, 2 adults, £1200 budget, pool, near beach..."></textarea>
 
-    <div class="request-actions">
-      <a id="rq_btn_wa" class="btn whatsapp" href="#">Send via WhatsApp</a>
-      <a id="rq_btn_email_toggle" class="btn email" href="#">Via Email</a>
+      <div class="request-actions">
+        <a id="rq_btn_wa" class="btn whatsapp" href="#">Send via WhatsApp</a>
+        <a id="rq_btn_email_toggle" class="btn email" href="#">Via Email</a>
+      </div>
+
+      <div id="rq_email_wrap" class="request-email">
+        <label>Your email</label>
+        <input id="rq_email" type="email" placeholder="you@example.com">
+        <a id="rq_btn_email_send" class="btn email" href="#" style="margin-top:8px;display:inline-block">Submit by Email</a>
+        <span id="rq_status" class="notice" style="margin-left:8px"></span>
+      </div>
     </div>
-
-    <div id="rq_email_wrap" class="request-email">
-      <label>Your email</label>
-      <input id="rq_email" type="email" placeholder="you@example.com">
-      <a id="rq_btn_email_send" class="btn email" href="#" style="margin-top:8px;display:inline-block">Submit by Email</a>
-      <span id="rq_status" class="notice" style="margin-left:8px"></span>
-    </div>
-  </div>
-</div>
-
+  </section>
 
   <!-- Blog -->
-  <div id="tab-blog" class="tabpane" style="display:none">
+  <section id="tab-blog" class="tabpane" style="display:none">
     <div class="card">
       <h2 class="title" style="margin-top:0">whefax blog</h2>
       <div id="blog_list">Loading blog…</div>
     </div>
-  </div>
+  </section>
 
   <!-- About -->
-  <div id="tab-about" class="tabpane" style="display:none">
+  <section id="tab-about" class="tabpane" style="display:none">
     <div class="card">
       <h2 class="title">about WHEFAX</h2>
       <p>Teletext-style, phone-first travel deals. Paste → publish → book.</p>
@@ -107,33 +96,23 @@ document.addEventListener('click',function(e){
       <div class="info-block"><div class="label">Website</div><div class="value"><span id="about_site"></span></div></div>
       <div class="info-block"><div class="label">WhatsApp</div><div class="value"><span id="about_whats"></span></div></div>
     </div>
-  </div>
+  </section>
 </main>
 
-<!-- ✅ Footer -->
-<footer class="bar bottom"></footer>
+<!-- Pete Kay banner -->
 <div class="kay-banner">
   <a href="https://youtu.be/xfXg5BGXw-w?si=LDGyP963HvJO3dQd" target="_blank" rel="noopener">
     WHEFAX HOLIDAYS<br>BOOK IT. PACK IT. F##K OFF.
   </a>
 </div>
 
+<!-- Bottom links (full width, no borders) -->
 <div class="bottom-links">
-  <a href="index.html" class="navlink red">DEALS</a>
-  <a href="index.html#request" class="navlink green" data-gotab="request">REQUEST</a>
-  <a href="index.html#blog" class="navlink yellow" data-gotab="blog">BLOG</a>
-  <a href="index.html#about" class="navlink blue" data-gotab="about">ABOUT</a>
+  <a href="#deals"   class="navlink red"   data-gotab="deals">DEALS</a>
+  <a href="#request" class="navlink green" data-gotab="request">REQUEST</a>
+  <a href="#blog"    class="navlink yellow"data-gotab="blog">BLOG</a>
+  <a href="#about"   class="navlink blue"  data-gotab="about">ABOUT</a>
 </div>
-
-<script>
-document.addEventListener('click',function(e){
-  var a=e.target.closest('a.navlink[data-gotab]');
-  if(!a)return;
-  e.preventDefault();
-  localStorage.setItem('whefax.tab',a.getAttribute('data-gotab'));
-  location.href='index.html';
-});
-</script>
 
 </body>
 </html>
