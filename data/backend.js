@@ -1,40 +1,60 @@
-// Basic GitHub backend handler for WHEFAX
-window.whefaxBackend = {
-  async githubGetFile(path){
-    const repo=localStorage.getItem("github.repo");
-    const token=localStorage.getItem("github.token");
-    const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
-      headers:{Authorization:`Bearer ${token}`}
-    });
-    if(!res.ok) throw new Error("Get failed");
-    return await res.json();
+// === WHEFAX v10.2 BACKEND ===
+const whefaxBackend = {
+  repo: localStorage.getItem("github.repo") || "",
+  token: localStorage.getItem("github.token") || "",
+
+  raw(url) {
+    return `https://raw.githubusercontent.com/${this.repo}/main/${url}?v=${Date.now()}`;
   },
-  async githubUpdateFile(path,content,message){
-    const repo=localStorage.getItem("github.repo");
-    const token=localStorage.getItem("github.token");
-    const current=await this.githubGetFile(path);
-    const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+
+  async fetchJSON(url) {
+    const r = await fetch(this.raw(url));
+    if (!r.ok) throw new Error("Load failed " + url);
+    return await r.json();
+  },
+
+  async fetchDeals() {
+    try { return await this.fetchJSON("data/deals.json"); }
+    catch(e){ console.warn(e); return {deals:[]}; }
+  },
+
+  async fetchBlogs() {
+    try { return await this.fetchJSON("data/blog.json"); }
+    catch(e){ console.warn(e); return {posts:[]}; }
+  },
+
+  async fetchStats() {
+    const d = await this.fetchDeals();
+    const live = d.deals.filter(x=>!x.expired).length;
+    const expired = d.deals.filter(x=>x.expired).length;
+    const totalHeat = d.deals.reduce((a,b)=>a+(b.hot||0),0);
+    return {live, expired, totalHeat};
+  },
+
+  async githubGetFile(path){
+    const r = await fetch(`https://api.github.com/repos/${this.repo}/contents/${path}`,{
+      headers:{Authorization:`token ${this.token}`}
+    });
+    if(!r.ok) throw new Error("GitHub get failed");
+    return await r.json();
+  },
+
+  async githubUpdateFile(path,content,msg){
+    const f = await this.githubGetFile(path);
+    const body={
+      message:msg,
+      content:btoa(content),
+      sha:f.sha,
+      branch:"main"
+    };
+    const r = await fetch(`https://api.github.com/repos/${this.repo}/contents/${path}`,{
       method:"PUT",
       headers:{
-        Authorization:`Bearer ${token}`,
+        Authorization:`token ${this.token}`,
         "Content-Type":"application/json"
       },
-      body:JSON.stringify({
-        message,
-        content:btoa(unescape(encodeURIComponent(content))),
-        sha:current.sha
-      })
+      body:JSON.stringify(body)
     });
-    return await res.json();
-  },
-  async fetchStats(){
-    const f=await this.githubGetFile("data/deals.json");
-    const j=JSON.parse(atob(f.content));
-    const all=j.deals||[];
-    return {
-      live:all.filter(d=>!d.expired).length,
-      expired:all.filter(d=>d.expired).length,
-      totalHeat:all.reduce((a,b)=>a+(b.hot||0),0)
-    };
+    if(!r.ok) throw new Error("GitHub update failed");
   }
 };
