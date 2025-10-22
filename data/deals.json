@@ -1,3 +1,20 @@
 {
-  "deals": []
+  "deals": [
+    {
+      "id": "mh1aghbc",
+      "title": "Hdhdhd",
+      "destination": "",
+      "dates": "",
+      "price": "",
+      "flight_link": "",
+      "hotel_link": "",
+      "flight_info": "",
+      "hotel_info": "",
+      "board": "",
+      "transfers": "",
+      "other": "Hehdh",
+      "hot": 0,
+      "tags": []
+    }
+  ]
 }
