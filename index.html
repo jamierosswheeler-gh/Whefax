@@ -66,7 +66,7 @@
 </div>
 
 <script>
-// Smart WHEFAX PWA install system
+// Smart PWA install system
 let deferredPrompt;
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
@@ -90,7 +90,7 @@ document.addEventListener('click', e => {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(c => {
       if (c.outcome === 'accepted') console.log('Installed!');
-      localStorage.setItem('whefax.pwaPrompted', 'yes');
+      localStorage.setItem('whefax.pwaPrompted','yes');
     });
   }
 });
