@@ -1,36 +1,32 @@
 {
   "deals": [
     {
-      "id": "mh1auew3",
-      "title": "Brhd",
-      "destination": "",
-      "dates": "",
-      "price": "",
-      "flight_link": "",
-      "hotel_link": "",
-      "flight_info": "",
-      "hotel_info": "",
-      "board": "",
-      "transfers": "",
-      "other": "",
-      "hot": 0,
-      "tags": []
+      "id": "d101",
+      "title": "Tenerife Getaway",
+      "description": "7 nights, 4-star beachside hotel with return flights. Perfect winter sun!",
+      "destination": "Tenerife",
+      "price": "399",
+      "dates": "Nov 2025",
+      "tags": ["Beach","Winter Sun","Canaries"],
+      "flight": "https://example.com/flights-tenerife",
+      "hotel": "https://example.com/hotel-tenerife",
+      "hot": 12,
+      "featured": true,
+      "expired": false
     },
     {
-      "id": "mh1aghbc",
-      "title": "Hdhdhd",
-      "destination": "",
-      "dates": "",
-      "price": "",
-      "flight_link": "",
-      "hotel_link": "",
-      "flight_info": "",
-      "hotel_info": "",
-      "board": "",
-      "transfers": "",
-      "other": "Hehdh",
-      "hot": 0,
-      "tags": []
+      "id": "d102",
+      "title": "New York City Lights",
+      "description": "4 nights in Manhattan with direct flights and breakfast included.",
+      "destination": "New York",
+      "price": "699",
+      "dates": "Dec 2025",
+      "tags": ["City Break","USA","Shopping"],
+      "flight": "https://example.com/flights-nyc",
+      "hotel": "https://example.com/hotel-nyc",
+      "hot": 8,
+      "featured": false,
+      "expired": false
     }
   ]
 }
