@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Blog | WHEFAX HOLIDAYS</title>
+<link rel="stylesheet" href="styles.css?v=10.1" />
+<script src="backend.js?v=10.1" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded",loadBlog);
+async function loadBlog(){
+  const out=document.getElementById("blog_list");
+  try{
+    const f=await whefaxBackend.githubGetFile("data/blog.json");
+    const j=JSON.parse(atob(f.content));
+    if(!j.posts.length){out.textContent="No posts yet.";return;}
+    out.innerHTML=j.posts.map(p=>`
+      <div class='card'>
+        <h3>${p.title}</h3>
+        <p style="color:#0ff;font-size:0.8rem;">${p.author} – ${p.date}</p>
+        <p>${p.content}</p>
+      </div>`).join("");
+  }catch(e){out.textContent="Error loading blog.";}
+}
+</script>
+</head>
+
+<body class="tab-blog">
+<div class="ticker-bar top"><div class="left">WHEFAX HOLIDAYS 101</div><div class="right ticker-time"></div></div>
+<header class="hero hero--ratio-5x1"><img src="assets/header.svg" alt=""></header>
+
+<nav class="topnav">
+  <a href="index.html" class="toptab red">DEALS</a>
+  <a href="request.html" class="toptab green">REQUEST</a>
+  <a href="blog.html" class="toptab yellow active">BLOG</a>
+  <a href="about.html" class="toptab blue">GET APP</a>
+</nav>
+
+<main>
+  <div id="blog_list" class="main-wrap">Loading blog posts…</div>
+</main>
+
+<footer class="footbar">
+  <div class="footline yellow"></div>
+  <div class="footlink">
+    <a href="index.html" class="navlink red">DEALS</a>
+    <a href="request.html" class="navlink green">REQUEST</a>
+    <a href="blog.html" class="navlink yellow">BLOG</a>
+    <a href="about.html" class="navlink blue">GET APP</a>
+  </div>
+  <div class="footline yellow"></div>
+  <p class="pkay">
+    <a href="https://youtu.be/xfXg5BGXw-w?si=LDGyP963HvJO3dQd" target="_blank">
+      WHEFAX HOLIDAYS<br>BOOK IT. PACK IT. F##K OFF.
+    </a>
+  </p>
+</footer>
+</body>
+</html>
