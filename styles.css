@@ -1,101 +1,59 @@
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#000;color:#fff;font-family:monospace}
-a{color:#0ff;text-decoration:none}
-a:hover{text-decoration:none} /* no underlines site-wide */
-
-/* ===== Ticker ===== */
-.ticker-bar.top{
-  position:sticky; top:0; z-index:80;
-  display:flex; justify-content:space-between; align-items:center;
-  background:#000; padding:4px 10px; font-weight:700; border-bottom:2px solid #000;
+body {
+  background:#000; color:#fff;
+  font-family:monospace; margin:0;
 }
-.ticker-bar .left{color:#0ff}
-.ticker-bar .right{color:#0ff;font-variant-numeric:tabular-nums}
+a { color:inherit; text-decoration:none; }
+a:hover { text-decoration:none; }
 
-/* ===== Header (SVG aspect safe) ===== */
-.hero{position:relative; overflow:hidden}
-.hero--ratio-5x1::before{content:""; display:block; padding-top:20%}
-.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; image-rendering:pixelated}
-
-/* ===== Top nav (sticky, colourful bordered tabs) ===== */
-.topnav{
-  position:sticky; top:0; z-index:70;
-  display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;
-  background:#000; padding:8px 8px;
+.hero img { width:100%; height:auto; display:block; }
+.ticker-bar {
+  background:#000; color:#0ff;
+  font-weight:700; display:flex;
+  justify-content:space-between;
+  padding:4px 10px; font-size:0.9rem;
 }
-.toptab{
-  flex:1 1 25%; text-align:center;
-  font-weight:900; font-size:1.05rem; padding:10px 0;
-  background:#000;
-  border:3px solid currentColor; /* restore boxes */
+.topnav {
+  display:flex; justify-content:space-around;
+  white-space:nowrap; overflow:hidden;
 }
-.toptab.red{color:#f00}
-.toptab.green{color:#0f0}
-.toptab.yellow{color:#ff0}
-.toptab.blue{color:#00f}
-
-/* ===== Page layout ===== */
-main{padding:10px}
-.card{border:4px solid #00f; padding:10px; margin:10px 0; background:#000}
-.title{color:#ff0; font-weight:900; text-transform:lowercase}
-
-/* ===== Filters (UPPERCASE; white; active = light blue) ===== */
-.filters{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px}
-.filter-chip{
-  text-transform:uppercase;
-  display:inline-block; padding:6px 12px; border:2px solid #fff; color:#fff; background:#000; border-radius:4px; cursor:pointer
+.toptab {
+  flex:1; text-align:center;
+  padding:8px 0; font-weight:700;
+  border:2px solid #000; font-size:0.95rem;
 }
-.filter-chip.active{border-color:#0ff; color:#0ff}
+.toptab.red{background:#c00;} 
+.toptab.green{background:#0c0;}
+.toptab.yellow{background:#cc0; color:#000;}
+.toptab.blue{background:#06f;}
 
-/* ===== Deals ===== */
-.deal{
-  position:relative; cursor:pointer;
-  border:3px solid #0f0; padding:10px; margin:10px 0;
-  min-height:140px; display:flex; flex-direction:column; justify-content:space-between; padding-bottom:56px;
+.main-wrap { padding:8px; }
+.card {
+  border:3px solid #c00; border-radius:0;
+  margin:6px 0; padding:6px; background:#111;
 }
-.deal .dtitle{color:#ff0; font-weight:900; font-size:1.28rem; text-transform:uppercase}
-.deal .tags{display:none} /* hide purple tags on cards */
-
-/* Voting widget */
-.vote-panel{
-  position:absolute; bottom:8px; right:8px;
-  display:flex; align-items:center; gap:10px;
-  background:#111; padding:5px 10px; border-radius:28px; border:2px solid #444;
+.card h3 { margin:0 0 4px; color:#ff0; }
+.btn {
+  display:inline-block; padding:6px 10px;
+  margin:4px 2px; font-weight:700;
+  border:none; cursor:pointer;
 }
-.vote-circle{
-  width:32px; height:32px; border-radius:50%;
-  border:2px solid #888; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; background:#000;
+.btn.red{background:#c00;color:#fff;}
+.btn.green{background:#0c0;color:#000;}
+.btn.yellow{background:#cc0;color:#000;}
+
+.footbar { text-align:center; padding:8px 0; }
+.footline {
+  height:4px; margin:4px 0;
+  background:#c00;
 }
-.vote-circle svg{width:20px; height:20px}
-.vote-circle.up svg path{fill:#f44}
-.vote-circle.down svg path{fill:#0af}
-.vote-score{font-weight:900; font-size:1.15rem; color:#f44; min-width:56px; text-align:center}
-
-/* ===== Buttons ===== */
-.btn{display:inline-block; border:3px solid currentColor; padding:8px 12px; text-decoration:none; font-weight:900; background:#000; margin-right:10px; margin-top:6px}
-.btn.flight{color:#f00}.btn.hotel{color:#0f0}.btn.talk{color:#ff0}
-.btn.whatsapp{color:#0f0;border-color:#0f0}
-.btn.email{color:#0ff;border-color:#0ff}
-
-/* ===== About blocks ===== */
-.info-block{margin:10px 0; padding:8px 10px; border:3px solid #0ff}
-.info-block .label{color:#0ff; font-weight:900; margin-bottom:4px}
-.info-block .value{color:#fff; word-break:break-word}
-
-/* ===== Request simplified + voice note ===== */
-.request-wrap .bigbox{
-  width:100%; min-height:140px; font-size:1.1rem; padding:10px;
-  border:3px solid #0f0; background:#000; color:#fff; font-family:system-ui,-apple-system,Arial,sans-serif;
+.footlink { display:flex; justify-content:space-around; }
+.navlink {
+  font-weight:700; font-size:1rem; padding:4px 0;
 }
-.request-actions{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
-.voice-wrap{margin-top:10px; border:3px dashed #0ff; padding:10px}
-.voice-status{margin-top:6px; color:#0ff; font-size:0.95rem}
-.voice-actions{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
+.navlink.red{color:#f00;}
+.navlink.green{color:#0f0;}
+.navlink.yellow{color:#ff0;}
+.navlink.blue{color:#0ff;}
 
-/* ===== Banner + bottom links (larger) ===== */
-.kay-banner{border-top:4px solid #f00; border-bottom:4px solid #f00; text-align:center; padding:8px 10px; margin:8px 0 10px}
-.kay-banner a{color:#ff0; text-decoration:none; font-weight:900; line-height:1.25; font-size:1.25rem}
-.bottom-links{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:0}
-.bottom-links .navlink{display:block; text-align:center; padding:12px 6px; font-size:1.25rem; background:none!important; border:none!important; font-weight:900}
-.bottom-links .red{color:#f00}.bottom-links .green{color:#0f0}.bottom-links .yellow{color:#ff0}.bottom-links .blue{color:#00f}
+.pkay a{color:#ff0;font-weight:700;font-size:1rem;}
+.loading{text-align:center;padding:40px;}
