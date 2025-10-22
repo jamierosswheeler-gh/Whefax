@@ -123,6 +123,42 @@ function initSettings(){
     localStorage.setItem("github.token",token.value);
     localStorage.setItem("admin.email",email.value);
     alert("✅ Saved");
+      document.getElementById("force_refresh").onclick = async () => {
+    if (confirm("Force reload for all users? This will clear cached files and reload.")) {
+      try {
+        // Update version.txt automatically
+        const repo = localStorage.getItem("github.repo");
+        const token = localStorage.getItem("github.token");
+        if (!repo || !token) { alert("Missing repo or token!"); return; }
+
+        const path = "version.txt";
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          headers: { Authorization: `token ${token}` }
+        });
+        const data = await res.json();
+        const newVersion = (parseFloat((await (await fetch(whefaxBackend.raw(path))).text()) || "0") + 0.1).toFixed(1);
+        const body = {
+          message: `Force refresh ${newVersion}`,
+          content: btoa(newVersion),
+          sha: data.sha,
+          branch: "main"
+        };
+        await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          method: "PUT",
+          headers: {
+            Authorization: `token ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        alert(`✅ Cache-busting update triggered (v${newVersion}).`);
+      } catch (err) {
+        console.error(err);
+        alert("❌ Could not update version file. Check token/repo permissions.");
+      }
+    }
+  };
+
   };
   document.getElementById("backup_settings").onclick=()=>{
     const data=`Repo:${repo.value}\nToken:${token.value}\nEmail:${email.value}`;
